@@ -1,0 +1,36 @@
+﻿@model AutoDoc.Models.user
+@{
+	ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+<div>
+	@using (Html.BeginForm("CreateUser", "User", FormMethod.Post))
+	{
+		<fieldset>
+			<div>
+				@Html.LabelFor(u => u.email)
+				@Html.EditorFor(u => u.email)
+			</div>
+			<div>
+				@Html.LabelFor(u => u.firstname)
+				@Html.EditorFor(u => u.firstname)
+			</div>
+			<div>
+				@Html.LabelFor(u => u.lastname)
+				@Html.EditorFor(u => u.lastname)
+			</div>
+			<div>
+				@Html.LabelFor(u => u.password)
+				@Html.PasswordFor(u => u.password)
+			</div>
+			<div>
+				@Html.LabelFor(u => u.dob)
+				@Html.EditorFor(u => u.dob)
+			</div>
+			<input type="submit" value="Submit" />
+		</fieldset>}
+	@{Html.EndForm();}
+</div>
+
+
