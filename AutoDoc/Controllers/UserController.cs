@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
+using System.Linq;
 using System.Web.Mvc;
 using AutoDoc.Models;
+using System.Web.Helpers;
 
 namespace AutoDoc.Controllers
 {
@@ -17,20 +18,36 @@ namespace AutoDoc.Controllers
 
         public ActionResult DisplayUsers()
         {
-            return View();
+            var entities = new userEntities();
+            return View(entities.users.ToList());
         }
 
-        /*[HttpGet]
+        [HttpGet]
         public ActionResult CheckUserExists()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult CheckUserExists()
+        public ActionResult CheckUserExists(user model)
         {
-            return View();
-        }*/
+            if (ModelState.IsValid)
+            {
+                var db = new userEntities();
+
+                var v = db.users.Where(u => u.firstname.Equals(model.firstname)).FirstOrDefault();
+                if (v != null)
+                {
+                    ViewData["Message"] = "Record exists";
+                }
+                else
+                {
+                    ViewData["Message"] = "Fail";
+                }
+            }
+            return View(model);
+
+        }
 
         [HttpGet]
         public ActionResult CreateUser()
@@ -44,12 +61,15 @@ namespace AutoDoc.Controllers
             if (ModelState.IsValid)
             {
                 var db = new userEntities();
+
+                var hash = Crypto.HashPassword(model.password);
+                
                 db.users.Add(new user
                 {
                     email = model.email,
                     firstname = model.firstname,
                     lastname = model.lastname,
-                    password = model.password,
+                    password = hash,
                     dob = model.dob,
                     utype = model.utype
                 });

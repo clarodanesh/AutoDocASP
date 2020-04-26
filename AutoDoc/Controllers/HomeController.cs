@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AutoDoc.Models;
 
 namespace AutoDoc.Controllers
 {
@@ -10,6 +11,9 @@ namespace AutoDoc.Controllers
     {
         public ActionResult Index()
         {
+            //check if a session is set and if a session is set
+            //then go to the dashboard of that utype
+            //if not set open login
             return View();
         }
 

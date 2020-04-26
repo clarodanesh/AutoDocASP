@@ -1,36 +1,63 @@
 ﻿@model AutoDoc.Models.user
 @{
 	ViewBag.Title = "Register";
+    Layout = null;
 }
+<head>
+    <title>Register - AutoDoc</title>
+    @Styles.Render("~/Content/autodoc-auth.css")
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
 
-<h2>Register</h2>
-<div>
-	@using (Html.BeginForm("CreateUser", "User", FormMethod.Post))
-	{
-		<fieldset>
-			<div>
-				@Html.LabelFor(u => u.email)
-				@Html.EditorFor(u => u.email)
-			</div>
-			<div>
-				@Html.LabelFor(u => u.firstname)
-				@Html.EditorFor(u => u.firstname)
-			</div>
-			<div>
-				@Html.LabelFor(u => u.lastname)
-				@Html.EditorFor(u => u.lastname)
-			</div>
-			<div>
-				@Html.LabelFor(u => u.password)
-				@Html.PasswordFor(u => u.password)
-			</div>
-			<div>
-				@Html.LabelFor(u => u.dob)
-				@Html.EditorFor(u => u.dob)
-			</div>
-			<input type="submit" value="Submit" />
-		</fieldset>}
-	@{Html.EndForm();}
+<div id="auth-form-container">
+    <div class="auth-form">
+        <div id="auth-form-title">Register to AutoDoc</div>
+        <img id="auth-form-logo" src="../Images/logo.png" />
+        <div id="auth-form-hint">Create an account with AutoDoc</div>
+        @using (Html.BeginForm("CreateUser", "User", FormMethod.Post))
+        {
+            <div class="auth-form-section">
+                @Html.EditorFor(u => u.email, new {
+                   htmlAttributes = new
+                   {
+                        @class = "auth-form-input",
+                        @placeholder = "email"
+                   }
+                })
+            </div>
+            <div class="auth-form-section">
+                @Html.EditorFor(u => u.firstname, new {
+                   htmlAttributes = new
+                   {
+                        @class = "auth-form-input",
+                        @placeholder = "firstname"
+                   }
+                })
+            </div>
+            <div class="auth-form-section">
+                @Html.EditorFor(u => u.lastname, new {
+                   htmlAttributes = new
+                   {
+                        @class = "auth-form-input",
+                        @placeholder = "lastname"
+                   }
+                })
+            </div>
+            <div class="auth-form-section">
+                @Html.PasswordFor(u => u.password, new { placeholder = "Password", @class = "auth-form-input"})
+            </div>
+            <div class="auth-form-section">
+                @Html.EditorFor(u => u.dob, new {
+                   htmlAttributes = new
+                   {
+                        @class = "auth-form-input",
+                        @placeholder = "date of birth"
+                   }
+                })
+            </div>
+            <input class="auth-form-primary-btn" type="submit" value="Submit" />}
+        @{Html.EndForm();}
+    </div>
 </div>
 
 
