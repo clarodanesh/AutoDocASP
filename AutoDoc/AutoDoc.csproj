@@ -133,6 +133,24 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\appointment.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>appointment.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\appointment.cs">
+      <DependentUpon>user.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\appointment.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>appointment.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\appointment1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>appointment.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\user.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -169,6 +187,16 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\logo.png" />
+    <Content Include="Models\appointment.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>appointment.edmx</DependentUpon>
+      <LastGenOutput>appointment.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\appointment.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>appointment.edmx</DependentUpon>
+      <LastGenOutput>appointment1.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\user.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>user.Context.cs</LastGenOutput>
@@ -187,6 +215,13 @@
     </EntityDeploy>
     <Content Include="Models\user.edmx.diagram">
       <DependentUpon>user.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\appointment.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>appointment.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\appointment.edmx.diagram">
+      <DependentUpon>appointment.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

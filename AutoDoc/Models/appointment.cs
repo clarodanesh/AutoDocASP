@@ -12,17 +12,13 @@ namespace AutoDoc.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class user
+    public partial class appointment
     {
         public int Id { get; set; }
-        public string email { get; set; }
-        public string firstname { get; set; }
-        public string lastname { get; set; }
-        public string password { get; set; }
-        public string dob { get; set; }
-        public string utype { get; set; }
         public string doctor { get; set; }
+        public string user { get; set; }
         public string date { get; set; }
         public string time { get; set; }
+        public string astate { get; set; }
     }
 }

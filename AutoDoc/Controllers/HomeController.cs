@@ -20,7 +20,7 @@ namespace AutoDoc.Controllers
 
                 //since the user who is logged in is a standard user
                 //open the users landing page
-                return RedirectToAction("OpenUserLanding", "Home");
+                return RedirectToAction("OpenUserLanding", "User");
             }
             else if (Session["UTYPE"] as string == "ADMIN")
             {

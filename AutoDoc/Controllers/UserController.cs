@@ -41,6 +41,7 @@ namespace AutoDoc.Controllers
                 {
                     //ViewData["Message"] = "Record exists";
                     Session["UTYPE"] = v.utype;
+                    Session["EMAIL"] = v.email;
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -79,6 +80,7 @@ namespace AutoDoc.Controllers
                 });
                 db.SaveChanges();
                 Session["UTYPE"] = "USER";
+                Session["EMAIL"] = model.email;
                 return RedirectToAction("Index", "Home");
             }
             return View(model);
@@ -93,27 +95,22 @@ namespace AutoDoc.Controllers
         }
 
         [HttpPost]
-        public ActionResult OpenUserLanding(user model)
+        public ActionResult OpenUserLanding(appointment model, user m)
         {
             if (ModelState.IsValid)
             {
                 var db = new userEntities();
-
-                var hash = Crypto.HashPassword(model.password);
-                var user = "USER";
-
-                db.users.Add(new user
-                {
-                    email = model.email,
-                    firstname = model.firstname,
-                    lastname = model.lastname,
-                    password = hash,
-                    dob = model.dob,
-                    utype = user
+                
+                db.appointments.Add(new appointment
+                { 
+                    doctor = m.doctor,
+                    user = Session["EMAIL"] as string,
+                    date = model.date,
+                    time = model.time,
+                    astate = "booked"
                 });
                 db.SaveChanges();
-                Session["UTYPE"] = "USER";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("OpenUserLanding", "User");
             }
             return View(model);
         }

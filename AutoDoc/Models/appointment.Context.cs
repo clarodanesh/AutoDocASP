@@ -13,10 +13,10 @@ namespace AutoDoc.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class userEntities : DbContext
+    public partial class appointmentEntities : DbContext
     {
-        public userEntities()
-            : base("name=userEntities")
+        public appointmentEntities()
+            : base("name=appointmentEntities")
         {
         }
     
@@ -25,7 +25,6 @@ namespace AutoDoc.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<user> users { get; set; }
         public virtual DbSet<appointment> appointments { get; set; }
     }
 }
