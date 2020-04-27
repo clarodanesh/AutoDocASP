@@ -1,0 +1,139 @@
+﻿body {
+    margin: 0;
+}
+
+#user-nav {
+    height: 75px;
+    background-color: #FFFFFF;
+    width: 100%;
+    line-height: 75px;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 3px solid #3394FF;
+    font-family: 'Ubuntu', sans-serif;
+    top: 0;
+    box-shadow: 0px -3px 20px #888;
+}
+
+#branding-container {
+    line-height: 75px;
+    height: 75px;
+    display: flex;
+    flex-direction: row;
+    font-size: 1.5rem;
+    color: #3394FF;
+}
+
+#logo-img {
+    width: 75px;
+    padding: 5px;
+}
+
+#logo-text {
+    /*styles inherited from parent*/
+}
+
+#link-container {
+    display: flex;
+    flex-direction: row;
+    color: #3394FF;
+}
+
+#link-seperator {
+    margin-right: 10px;
+}
+
+.link {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #3394FF;
+    transition: 0.3s;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+    .link:hover {
+        background-color: #3394FF;
+        color: #FFFFFF;
+        transition: 0.3s;
+    }
+
+#form-container {
+    display: grid;
+    height: 88vh;
+    place-items: center;
+    width: 50%;
+}
+
+#doctor-slct {
+    border: none;
+    height: 40px;
+    width: 200px;
+}
+
+#date {
+    width: 200px;
+}
+
+#time {
+    width: 200px;
+}
+
+#view-appt-main {
+    display: grid;
+    height: 88vh;
+    place-items: center;
+    width: 100%;
+}
+
+#view-appt-view {
+    display: flex;
+    flex-direction: column;
+    height: 401px;
+}
+
+#cancel {
+    display: flex;
+    line-height: 40px;
+    justify-content: center;
+    align-self: center;
+    text-decoration: none;
+}
+
+#edit {
+    display: flex;
+    line-height: 40px;
+    justify-content: center;
+    align-self: center;
+    text-decoration: none;
+}
+
+#dob {
+    width: 230px;
+}
+
+.user-detail {
+    font-family: 'Ubuntu', sans-serif;
+    color: #3394FF;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+#view-holder {
+    display: flex;
+    flex-direction: row;
+}
+
+.user-form {
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    align-items: center;
+}
+
+#save-btn {
+}
+
+#dob {
+}

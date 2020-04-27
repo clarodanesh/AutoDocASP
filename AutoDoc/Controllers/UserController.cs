@@ -23,22 +23,25 @@ namespace AutoDoc.Controllers
         }
 
         [HttpGet]
-        public ActionResult CheckUserExists()
+        public ActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult CheckUserExists(user model)
+        public ActionResult Login(user model)
         {
             if (ModelState.IsValid)
             {
                 var db = new userEntities();
+                var hashedPass = Crypto.HashPassword(model.password);
 
-                var v = db.users.Where(u => u.firstname.Equals(model.firstname)).FirstOrDefault();
-                if (v != null)
+                var v = db.users.Where(u => u.email.Equals(model.email)).FirstOrDefault();
+                if (v != null && v.email == model.email && Crypto.VerifyHashedPassword(v.password, model.password))
                 {
-                    ViewData["Message"] = "Record exists";
+                    //ViewData["Message"] = "Record exists";
+                    Session["UTYPE"] = v.utype;
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -46,7 +49,7 @@ namespace AutoDoc.Controllers
                 }
             }
             return View(model);
-
+            
         }
 
         [HttpGet]
@@ -63,7 +66,8 @@ namespace AutoDoc.Controllers
                 var db = new userEntities();
 
                 var hash = Crypto.HashPassword(model.password);
-                
+                var user = "USER";
+
                 db.users.Add(new user
                 {
                     email = model.email,
@@ -71,13 +75,45 @@ namespace AutoDoc.Controllers
                     lastname = model.lastname,
                     password = hash,
                     dob = model.dob,
-                    utype = model.utype
+                    utype = user
                 });
                 db.SaveChanges();
+                Session["UTYPE"] = "USER";
                 return RedirectToAction("Index", "Home");
             }
             return View(model);
         }
 
+        [HttpGet]
+        public ActionResult OpenUserLanding()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult OpenUserLanding(user model)
+        {
+            if (ModelState.IsValid)
+            {
+                var db = new userEntities();
+
+                var hash = Crypto.HashPassword(model.password);
+                var user = "USER";
+
+                db.users.Add(new user
+                {
+                    email = model.email,
+                    firstname = model.firstname,
+                    lastname = model.lastname,
+                    password = hash,
+                    dob = model.dob,
+                    utype = user
+                });
+                db.SaveChanges();
+                Session["UTYPE"] = "USER";
+                return RedirectToAction("Index", "Home");
+            }
+            return View(model);
+        }
     }
 }

@@ -1,0 +1,34 @@
+﻿@model AutoDoc.Models.user
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+<head>
+    <title>Login - AutoDoc</title>
+    @Styles.Render("~/Content/autodoc-auth.css")
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+
+<div id="auth-form-container">
+    <div class="auth-form">
+        <div id="auth-form-title">Login to AutoDoc</div>
+        <img id="auth-form-logo" src="../Images/logo.png" />
+        <div id="auth-form-hint">Use your Email and Password</div>
+        @using (Html.BeginForm("Login", "User", FormMethod.Post))
+        {
+            <div class="auth-form-section">
+                @Html.EditorFor(u => u.email, new {
+                   htmlAttributes = new
+                   {
+                        @class = "auth-form-input",
+                        @placeholder = "email"
+                   }
+                })
+            </div>
+            <div class="auth-form-section">
+                @Html.PasswordFor(u => u.password, new { placeholder = "Password", @class = "auth-form-input" })
+            </div>
+            <input class="auth-form-primary-btn" type="submit" value="Submit" />}
+        @{Html.EndForm();}
+    </div>
+</div>

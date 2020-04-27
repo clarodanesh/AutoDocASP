@@ -159,6 +159,7 @@
       <DependentUpon>AutoDoc.mdf</DependentUpon>
     </Content>
     <Content Include="Content\autodoc-auth.css" />
+    <Content Include="Content\autodoc-user.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -214,6 +215,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\User\CreateUser.cshtml" />
     <Content Include="Views\User\DisplayUsers.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\User\OpenUserLanding.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
