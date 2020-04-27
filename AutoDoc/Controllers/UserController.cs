@@ -87,7 +87,9 @@ namespace AutoDoc.Controllers
         [HttpGet]
         public ActionResult OpenUserLanding()
         {
-            return View();
+            var entities = new userEntities();
+            //var v = entities.users.Where(u => u.utype.Equals("USER")).ToList();
+            return View(/*entities.users.ToList()*/);
         }
 
         [HttpPost]

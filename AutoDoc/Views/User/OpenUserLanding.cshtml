@@ -1,4 +1,38 @@
-﻿
+﻿@model AutoDoc.Models.user
+@{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    /*listItems.Add(new SelectListItem
+    {
+        Text = "Exemplo1",
+        Value = "Exemplo1"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Exemplo2",
+        Value = "Exemplo2",
+        Selected = true
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Exemplo3",
+        Value = "Exemplo3"
+    });*/
+
+    var db = new AutoDoc.Models.userEntities();
+
+    var check = db.users.ToList();
+
+    foreach (var item in check)
+    {
+        /*@Html.Encode(item.firstname)
+        @Html.Encode(item.email)*/
+        listItems.Add(new SelectListItem
+        {
+            Text = item.email,
+            Value = item.email
+        });
+    }
+}
 @{
     ViewBag.Title = "OpenUserLanding";
     Layout = null;
@@ -10,4 +44,56 @@
     @Styles.Render("~/Content/autodoc-auth.css")
     <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
 </head>
+
+<div id="view-holder">
+    <div id="form-container">
+        <!--<form class="auth-form" action="">-->
+        <!--<?php $attr = array('id' => 'book-form'); echo form_open('User_controller/BookAppt', $attr);?>-->
+        <div class="auth-form" id="login-form">
+            <div id="auth-form-title">Book an Appointment</div>
+            <div id="auth-form-error"><!--<?php if(isset($error)){echo $error;} ?>--></div>
+            @using (Html.BeginForm("Login", "User", FormMethod.Post))
+            {
+                @Html.DropDownListFor(model => model.email, listItems, "-- Select Status --", new { @class = "auth-form-input" })
+                <div class="auth-form-section">
+                    @Html.EditorFor(u => u.dob, new {
+                       htmlAttributes = new
+                       {
+                            @type = "date",
+                            @class = "auth-form-input"
+                            /*@placeholder = "date of birth"*/
+                       }
+                    })
+                </div>
+                <div class="auth-form-section">
+                    @Html.EditorFor(u => u.dob, new {
+                       htmlAttributes = new
+                       {
+                            @type = "time",
+                            @class = "auth-form-input"
+                            /*@placeholder = "date of birth"*/
+                       }
+                    })
+                </div>
+                <input class="auth-form-primary-btn" type="submit" value="Submit" />
+            }
+            @{Html.EndForm();}
+        </div>
+        <!--</form>-->
+        <!--<?php echo form_close();?>-->
+    </div>
+
+    <div id="form-container">
+        <div id="view-appt-view">
+            <div id="auth-form-title">Your Booking</div>
+            <!--<?php if($appts=="empty"){return null;}foreach($appts as $app):?>-->
+            <div class="user-detail">Dr. <!--<?php echo $app->doctor ?>--></div>
+            <div class="user-detail"><!--<?php echo $app->date ?>--></div>
+            <div class="user-detail"><!--<?php echo $app->time ?>--></div>
+            <!--<?php endforeach;?>-->
+            <!--<option value="<?php echo $doc->email;?>">Dr. <?php echo $doc->firstname;?> <?php echo $doc->lastname;?></option>-->
+            <!--<a href="<?php echo base_url() . " index.php/User_controller/cancel/" . $app->apptid; ?>" class="auth-form-primary-btn" id="cancel">Cancel</a>-->
+        </div>
+    </div>
+</div>
 
