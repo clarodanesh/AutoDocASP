@@ -25,7 +25,28 @@ namespace AutoDoc.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            return View();
+            if (Session["UTYPE"] as string == "USER" && Session["EMAIL"] != null)
+            {
+                //do something interesting
+
+                //since the user who is logged in is a standard user
+                //open the users landing page
+                return RedirectToAction("OpenUserLanding", "User");
+
+            }
+            else if (Session["UTYPE"] as string == "DOCTOR" && Session["EMAIL"] != null)
+            {
+                return RedirectToAction("OpenDoctorLanding", "Doctor");
+            }
+            else if (Session["UTYPE"] as string == "ADMIN" && Session["EMAIL"] != null)
+            {
+                return RedirectToAction("OpenAdminLanding", "Admin");
+            }
+            else
+            {
+                return View();
+            }
+            //return View();
         }
 
         [HttpPost]
@@ -89,9 +110,22 @@ namespace AutoDoc.Controllers
         [HttpGet]
         public ActionResult OpenUserLanding()
         {
-            var entities = new userEntities();
-            //var v = entities.users.Where(u => u.utype.Equals("USER")).ToList();
-            return View(/*entities.users.ToList()*/);
+            var entities = new appointmentEntities();
+            //var currentUserEmail = Session["EMAIL"] as string;
+            //var v = entities.appointments.Where(u => u.user.Equals(currentUserEmail)).ToList();
+            if (Session["UTYPE"] as string == "USER")
+            {
+                //do something interesting
+
+                //since the user who is logged in is a standard user
+                //open the users landing page
+                return View(/*entities.appointments.ToList()*/);
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         [HttpPost]
@@ -113,6 +147,23 @@ namespace AutoDoc.Controllers
                 return RedirectToAction("OpenUserLanding", "User");
             }
             return View(model);
+        }
+
+        public ActionResult CancelAppointment()
+        {
+            var db = new appointmentEntities();
+            var currentUserEmail = Session["EMAIL"] as string;
+
+            var v = db.appointments.Where(u => u.user.Equals(currentUserEmail) && u.astate.Equals("booked")).FirstOrDefault();
+            db.appointments.Remove(v);
+            db.SaveChanges();
+            return RedirectToAction("OpenUserLanding", "User");
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

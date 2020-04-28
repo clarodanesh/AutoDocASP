@@ -252,6 +252,7 @@
     <Content Include="Views\User\DisplayUsers.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\OpenUserLanding.cshtml" />
+    <Content Include="Views\Shared\UserNav.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
