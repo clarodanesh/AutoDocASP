@@ -1,4 +1,4 @@
-﻿@model AutoDoc.Models.user
+﻿@model AutoDoc.ViewModels.LoginVM
 @{
     ViewBag.Title = "Login";
     Layout = null;
@@ -10,12 +10,12 @@
 </head>
 
 <div id="auth-form-container">
-    <div class="auth-form">
-        <div id="auth-form-title">Login to AutoDoc</div>
-        <img id="auth-form-logo" src="../Images/logo.png" />
-        <div id="auth-form-hint">Use your Email and Password</div>
-        @using (Html.BeginForm("Login", "User", FormMethod.Post))
+        @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @class = "auth-form" }))
         {
+            <div id="auth-form-title">Login to AutoDoc</div>
+            <img id="auth-form-logo" src="../Images/logo.png" />
+            <div id="auth-form-hint">Use your Email and Password</div>
+            <div id="auth-form-error">@{@Html.Encode(ViewData["Message"]); @Html.ValidationMessageFor(u => u.email); @Html.ValidationMessageFor(u => u.password)}</div>
             <div class="auth-form-section">
                 @Html.EditorFor(u => u.email, new {
                    htmlAttributes = new
@@ -28,7 +28,7 @@
             <div class="auth-form-section">
                 @Html.PasswordFor(u => u.password, new { placeholder = "Password", @class = "auth-form-input" })
             </div>
+            <div id="auth-form-question">Not registered? @Html.ActionLink("Register", "CreateUser", "User")</div>
             <input class="auth-form-primary-btn" type="submit" value="Submit" />}
         @{Html.EndForm();}
-    </div>
 </div>

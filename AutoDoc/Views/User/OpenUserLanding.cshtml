@@ -4,7 +4,10 @@
 
     var db = new AutoDoc.Models.userEntities();
 
-    var check = db.users.ToList();
+    var v = db.users.Where(u => u.utype.Equals("DOCTOR")).ToList();
+
+    var check = v;
+    //var check = db.users.ToList();
 
     foreach (var item in check)
     {
@@ -92,18 +95,19 @@
         <div id="view-appt-view">
             <div id="auth-form-title">Your Booking</div>
             <!--<?php if($appts=="empty"){return null;}foreach($appts as $app):?>-->
-            <div class="user-detail">@Html.Encode(doc)</div>
-            <div class="user-detail">@Html.Encode(date)</div>
-            <div class="user-detail">@Html.Encode(time)</div>
-            @{ 
+
+            @{
                 if (doc != "")
                 {
+                    <div class="user-detail">Doctors Email: @Html.Encode(doc)</div>
+                    <div class="user-detail">Date: @Html.Encode(date)</div>
+                    <div class="user-detail">Time: @Html.Encode(time)</div>
                     @Html.ActionLink("Cancel", "CancelAppointment", "User", new { @class = "auth-form-primary-btn", @id = "cancel" })
                 }
             }
             <!--<div class="user-detail">Dr.</div>
-            <div class="user-detail"></div>
-            <div class="user-detail"></div>-->
+    <div class="user-detail"></div>
+    <div class="user-detail"></div>-->
             <!--<?php endforeach;?>-->
             <!--<option value="<?php echo $doc->email;?>">Dr. <?php echo $doc->firstname;?> <?php echo $doc->lastname;?></option>-->
             <!--<a href="<?php echo base_url() . " index.php/User_controller/cancel/" . $app->apptid; ?>" class="auth-form-primary-btn" id="cancel">Cancel</a>-->

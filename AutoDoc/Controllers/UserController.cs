@@ -4,6 +4,7 @@ using System.Web;
 using System.Linq;
 using System.Web.Mvc;
 using AutoDoc.Models;
+using AutoDoc.ViewModels;
 using System.Web.Helpers;
 
 namespace AutoDoc.Controllers
@@ -50,7 +51,7 @@ namespace AutoDoc.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(user model)
+        public ActionResult Login(LoginVM model)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +68,7 @@ namespace AutoDoc.Controllers
                 }
                 else
                 {
-                    ViewData["Message"] = "Fail";
+                    ViewData["Message"] = "Incorrect details entered";
                 }
             }
             return View(model);
@@ -77,11 +78,31 @@ namespace AutoDoc.Controllers
         [HttpGet]
         public ActionResult CreateUser()
         {
-            return View();
+            if (Session["UTYPE"] as string == "USER" && Session["EMAIL"] != null)
+            {
+                //do something interesting
+
+                //since the user who is logged in is a standard user
+                //open the users landing page
+                return RedirectToAction("OpenUserLanding", "User");
+
+            }
+            else if (Session["UTYPE"] as string == "DOCTOR" && Session["EMAIL"] != null)
+            {
+                return RedirectToAction("OpenDoctorLanding", "Doctor");
+            }
+            else if (Session["UTYPE"] as string == "ADMIN" && Session["EMAIL"] != null)
+            {
+                return RedirectToAction("OpenAdminLanding", "Admin");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]
-        public ActionResult CreateUser(user model)
+        public ActionResult CreateUser(RegisterVM model)
         {
             if (ModelState.IsValid)
             {
