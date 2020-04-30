@@ -174,6 +174,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\RegisterVM.cs" />
     <Compile Include="ViewModels\LoginVM.cs" />
+    <Compile Include="ViewModels\UpdateVM.cs" />
     <Compile Include="ViewModels\UserDetailsVM.cs" />
     <Compile Include="ViewModels\UserLandingVM.cs" />
   </ItemGroup>
@@ -266,6 +267,8 @@
     <Content Include="Views\Admin\OpenAdminLanding.cshtml" />
     <Content Include="Views\Shared\AdminPanel.cshtml" />
     <Content Include="Views\Admin\ManageDoctors.cshtml" />
+    <Content Include="Views\Admin\ShowUpdateForm.cshtml" />
+    <Content Include="Views\Admin\Cancel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Doctor\" />

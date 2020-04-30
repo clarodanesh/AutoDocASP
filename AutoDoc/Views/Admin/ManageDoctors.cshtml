@@ -1,7 +1,13 @@
-﻿
+﻿@model AutoDoc.Models.user
 @{
     ViewBag.Title = "ManageDoctors";
     Layout = "../Shared/AdminPanel.cshtml";
+}
+@{
+    var userEntity = new AutoDoc.Models.userEntities();
+
+    var returnedDoctors = userEntity.users.Where(u => u.utype.Equals("DOCTOR")).ToList();
+    var s = 5;
 }
 
 <!DOCTYPE html>
@@ -29,18 +35,19 @@
             <!--<input class='admin-action-search' type="text" placeholder="Search">-->
         </div>
         <div id='admin-frame'>
-            <?php if($docInfo=="empty"){return null;}foreach($docInfo as $doctor):?>
-            <div class="frame-cards">
-                <div class="frame-card-info-container">
-                    <div class="frame-card-cont-text">Dr. <?php echo $doctor->firstname;?> <?php echo $doctor->lastname;?></div>
-                    <div class="frame-card-cont-text"><?php echo $doctor->email;?></div>
+            @foreach (var doctor in returnedDoctors)
+            {
+                <div class="frame-cards">
+                    <div class="frame-card-info-container">
+                        <div class="frame-card-cont-text">Dr. @Html.Encode(doctor.firstname) @Html.Encode(doctor.lastname)</div>
+                        <div class="frame-card-cont-text">@Html.Encode(doctor.email)</div>
+                    </div>
+                    <div class="frame-card-buttons-container">
+                        <a href="@Url.Action("ShowUpdateForm", "Admin", new { type = "DOCTOR", id = doctor.Id })" class="frame-card-button">&#9998</a>
+                        <a href="@Url.Action("Delete", "Admin")" class="frame-card-button">&#10799</a>
+                    </div>
                 </div>
-                <div class="frame-card-buttons-container">
-                    <a href="<?php echo base_url() . " index.php/Admin_controller/ShowUpdateForm/doctors/" . $doctor->id; ?>" class="frame-card-button">&#9998</a>
-                    <a href="<?php echo base_url() . " index.php/Admin_controller/Delete/doctors/" . $doctor->id; ?>" class="frame-card-button">&#10799</a>
-                </div>
-            </div>
-            <?php endforeach;?>
+            }
         </div>
     </div>
 
