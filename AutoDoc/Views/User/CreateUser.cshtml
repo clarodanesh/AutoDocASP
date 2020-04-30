@@ -21,7 +21,8 @@
                htmlAttributes = new
                {
                     @class = "auth-form-input",
-                    @placeholder = "email"
+                    @placeholder = "email",
+                    required = "required"
                }
             })
         </div>
@@ -30,7 +31,8 @@
                htmlAttributes = new
                {
                     @class = "auth-form-input",
-                    @placeholder = "firstname"
+                    @placeholder = "firstname",
+                    required = "required"
                }
             })
         </div>
@@ -39,19 +41,21 @@
                htmlAttributes = new
                {
                     @class = "auth-form-input",
-                    @placeholder = "lastname"
+                    @placeholder = "lastname",
+                    required = "required"
                }
             })
         </div>
         <div class="auth-form-section">
-            @Html.PasswordFor(u => u.password, new { placeholder = "Password", @class = "auth-form-input" })
+            @Html.PasswordFor(u => u.password, new { placeholder = "Password", @class = "auth-form-input", required = "required" })
         </div>
         <div class="auth-form-section">
             @Html.EditorFor(u => u.dob, new {
                htmlAttributes = new
                {
                     @type = "date",
-                    @class = "auth-form-input"
+                    @class = "auth-form-input",
+                    required = "required"
                     /*@placeholder = "date of birth"*/
                }
             })

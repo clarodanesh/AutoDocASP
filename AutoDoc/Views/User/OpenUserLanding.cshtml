@@ -1,4 +1,4 @@
-﻿@model AutoDoc.Models.user
+﻿@model AutoDoc.ViewModels.UserLandingVM
 @{
     List<SelectListItem> listItems = new List<SelectListItem>();
 
@@ -57,31 +57,33 @@
         <!--<?php $attr = array('id' => 'book-form'); echo form_open('User_controller/BookAppt', $attr);?>-->
         <div class="auth-form" id="login-form">
             <div id="auth-form-title">Book an Appointment</div>
-            <div id="auth-form-error"><!--<?php if(isset($error)){echo $error;} ?>--></div>
+            <div id="auth-form-error">@{@Html.Encode(ViewData["Message"]); @Html.ValidationMessageFor(u => u.doctor); @Html.ValidationMessageFor(u => u.date); @Html.ValidationMessageFor(u => u.time)}</div>
             @using (Html.BeginForm("OpenUserLanding", "User", FormMethod.Post))
             {
-                @Html.DropDownListFor(model => model.doctor, listItems, "-- Select Doctor --", new { @class = "auth-form-input" })
+                @Html.DropDownListFor(u => u.doctor, listItems, "-- Select Doctor --", new { @class = "auth-form-input", required = "required" })
                 <div class="auth-form-section">
                     @Html.EditorFor(u => u.date, new
-               {
+                {
                    htmlAttributes = new
                    {
                        @type = "date",
                        @class = "auth-form-input",
                        /*@placeholder = "date of birth"*/
+                       required="required"
                    }
-               })
+                })
                 </div>
                 <div class="auth-form-section">
                     @Html.EditorFor(u => u.time, new
-               {
+                {
                    htmlAttributes = new
                    {
                        @type = "time",
-                       @class = "auth-form-input"
+                       @class = "auth-form-input",
                        /*@placeholder = "date of birth"*/
+                       required = "required"
                    }
-               })
+                })
                 </div>
                 <input class="auth-form-primary-btn" type="submit" value="Submit" />
             }
@@ -94,8 +96,6 @@
     <div id="form-container">
         <div id="view-appt-view">
             <div id="auth-form-title">Your Booking</div>
-            <!--<?php if($appts=="empty"){return null;}foreach($appts as $app):?>-->
-
             @{
                 if (doc != "")
                 {
@@ -105,12 +105,6 @@
                     @Html.ActionLink("Cancel", "CancelAppointment", "User", new { @class = "auth-form-primary-btn", @id = "cancel" })
                 }
             }
-            <!--<div class="user-detail">Dr.</div>
-    <div class="user-detail"></div>
-    <div class="user-detail"></div>-->
-            <!--<?php endforeach;?>-->
-            <!--<option value="<?php echo $doc->email;?>">Dr. <?php echo $doc->firstname;?> <?php echo $doc->lastname;?></option>-->
-            <!--<a href="<?php echo base_url() . " index.php/User_controller/cancel/" . $app->apptid; ?>" class="auth-form-primary-btn" id="cancel">Cancel</a>-->
         </div>
     </div>
 </div>

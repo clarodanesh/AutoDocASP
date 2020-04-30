@@ -107,23 +107,33 @@ namespace AutoDoc.Controllers
             if (ModelState.IsValid)
             {
                 var db = new userEntities();
+                var currentUserEmail = model.email;
 
-                var hash = Crypto.HashPassword(model.password);
-                var user = "USER";
+                var v = db.appointments.Where(u => u.user.Equals(currentUserEmail)).FirstOrDefault();
 
-                db.users.Add(new user
+                if (v != null)
                 {
-                    email = model.email,
-                    firstname = model.firstname,
-                    lastname = model.lastname,
-                    password = hash,
-                    dob = model.dob,
-                    utype = user
-                });
-                db.SaveChanges();
-                Session["UTYPE"] = "USER";
-                Session["EMAIL"] = model.email;
-                return RedirectToAction("Index", "Home");
+                    var hash = Crypto.HashPassword(model.password);
+                    var user = "USER";
+
+                    db.users.Add(new user
+                    {
+                        email = model.email,
+                        firstname = model.firstname,
+                        lastname = model.lastname,
+                        password = hash,
+                        dob = model.dob,
+                        utype = user
+                    });
+                    db.SaveChanges();
+                    Session["UTYPE"] = "USER";
+                    Session["EMAIL"] = model.email;
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewData["Message"] = "User already exists";
+                }
             }
             return View(model);
         }
@@ -150,24 +160,81 @@ namespace AutoDoc.Controllers
         }
 
         [HttpPost]
-        public ActionResult OpenUserLanding(appointment model, user m)
+        public ActionResult OpenUserLanding(UserLandingVM m)
         {
             if (ModelState.IsValid)
             {
                 var db = new userEntities();
-                
-                db.appointments.Add(new appointment
-                { 
-                    doctor = m.doctor,
-                    user = Session["EMAIL"] as string,
-                    date = model.date,
-                    time = model.time,
-                    astate = "booked"
-                });
-                db.SaveChanges();
-                return RedirectToAction("OpenUserLanding", "User");
+                var currentUserEmail = Session["EMAIL"] as string;
+
+                var v = db.appointments.Where(u => u.user.Equals(currentUserEmail) && u.astate.Equals("booked")).FirstOrDefault();
+
+                if (v == null)
+                {
+                    db.appointments.Add(new appointment
+                    {
+                        doctor = m.doctor,
+                        user = Session["EMAIL"] as string,
+                        date = m.date,
+                        time = m.time,
+                        astate = "booked"
+                    });
+                    db.SaveChanges();
+                    return RedirectToAction("OpenUserLanding", "User");
+                }
+                else
+                {
+                    ViewData["Message"] = "You already have an appointment, attend or cancel it before booking again";
+                }
             }
-            return View(model);
+            return View(m);
+        }
+
+        [HttpGet]
+        public ActionResult OpenUserDetails()
+        {
+            var entities = new appointmentEntities();
+            //var currentUserEmail = Session["EMAIL"] as string;
+            //var v = entities.appointments.Where(u => u.user.Equals(currentUserEmail)).ToList();
+            if (Session["UTYPE"] as string == "USER")
+            {
+                //do something interesting
+
+                //since the user who is logged in is a standard user
+                //open the users landing page
+                return View(/*entities.appointments.ToList()*/);
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult OpenUserDetails(UserDetailsVM m)
+        {
+            if (ModelState.IsValid)
+            {
+                /*// get a tracked entity
+                var entity = context.User.Find(userId);
+                entity.someProp = someValue;
+                // other property changes might come here
+                context.SaveChanges();*/
+                var db = new userEntities();
+                var currentUserEmail = Session["EMAIL"] as string;
+                var foundUser = db.users.Where(u => u.email.Equals(currentUserEmail) && u.utype.Equals("USER")).FirstOrDefault();
+                //var foundUser = db.users.Find(currentUserEmail);
+
+                foundUser.dob = m.date;
+                foundUser.firstname = m.firstname;
+                foundUser.lastname = m.lastname;
+
+                db.SaveChanges();
+
+                return RedirectToAction("OpenUserDetails", "User");
+            }
+            return View(m);
         }
 
         public ActionResult CancelAppointment()

@@ -21,12 +21,13 @@
                    htmlAttributes = new
                    {
                         @class = "auth-form-input",
-                        @placeholder = "email"
+                        @placeholder = "email",
+                        required = "required"
                    }
                 })
             </div>
             <div class="auth-form-section">
-                @Html.PasswordFor(u => u.password, new { placeholder = "Password", @class = "auth-form-input" })
+                @Html.PasswordFor(u => u.password, new { placeholder = "Password", @class = "auth-form-input", required = "required" })
             </div>
             <div id="auth-form-question">Not registered? @Html.ActionLink("Register", "CreateUser", "User")</div>
             <input class="auth-form-primary-btn" type="submit" value="Submit" />}
