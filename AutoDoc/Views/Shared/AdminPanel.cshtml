@@ -1,0 +1,32 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    @Styles.Render("~/Content/autodoc-admin.css")
+    @Scripts.Render("~/Scripts/jquery.min.js")
+    @Scripts.Render("~/Scripts/admin-panel.js")
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id='admin-side-panel'>
+        <div id='admin-panel-header'>Admin Panel</div>
+        @Html.ActionLink("Dashboard", "OpenAdminLanding", "Admin", new { @class = "side-panel-link" })
+        @Html.ActionLink("Manage Doctors", "ManageDoctors", "Admin", new { @class = "side-panel-link" })
+        @Html.ActionLink("Manage Patients", "ManagePatients", "Admin", new { @class = "side-panel-link" })
+        @Html.ActionLink("Manage Admins", "ManageAdmins", "Admin", new { @class = "side-panel-link" })
+        @Html.ActionLink("Log Out", "Logout", "User", null, new { @class = "side-panel-link" })
+    </div>
+
+</body>
+</html>
+@RenderBody()
+
+

@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "OpenAdminLanding";
+    Layout = "../Shared/AdminPanel.cshtml";
+}
+
+<head>
+    <title>Admin Dashboard - AutoDoc</title>
+    @Styles.Render("~/Content/autodoc-admin.css")
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+
+<div id='main-content'>
+    <div id='main-header'>Dashboard</div>
+    <div class='admin-board-container'>
+        <!--<?php echo anchor('Admin_controller/ManageDoctors', "<div class='admin-board-header'>Doctors</div><div class='admin-board-content'></div>", 'class="admin-board"');?>-->
+        <a href="@Url.Action("ManageDoctors", "Admin")" class='admin-board'>
+            <div class='admin-board-header'>Doctors</div>
+            <div class='admin-board-content'>
+                <div class="number"><?php echo $docSize; ?></div>
+                <div class="caption">Active Doctors</div>
+            </div>
+        </a>
+
+        <a href="@Url.Action("ManagePatients", "Admin")" class='admin-board right-admin-board'>
+            <div class='admin-board-header'>Patients</div>
+            <div class='admin-board-content'>
+                <div class="number"><?php echo $ptSize; ?></div>
+                <div class="caption">Active Patients</div>
+            </div>
+        </a>
+    </div>
+    <a href="@Url.Action("ManageAdmins", "Admin")" class='admin-board-container' id='bottom-admin-board-container'>
+        <div class='admin-board full-width-board'>
+            <div class='admin-board-header'>Admins</div>
+            <div class='admin-board-content'>
+                <div class="number"><?php echo $admSize; ?></div>
+                <div class="caption">Active Admins</div>
+            </div>
+        </div>
+    </a>
+</div>
+

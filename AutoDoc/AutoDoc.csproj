@@ -182,6 +182,7 @@
     <Content Include="App_Data\AutoDoc_log.ldf">
       <DependentUpon>AutoDoc.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\autodoc-admin.css" />
     <Content Include="Content\autodoc-auth.css" />
     <Content Include="Content\autodoc-user.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -213,6 +214,7 @@
       <DependentUpon>user.edmx</DependentUpon>
       <LastGenOutput>user1.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\admin-panel.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\user.edmx">
@@ -235,6 +237,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -260,9 +263,10 @@
     <Content Include="Views\User\OpenUserLanding.cshtml" />
     <Content Include="Views\Shared\UserNav.cshtml" />
     <Content Include="Views\User\OpenUserDetails.cshtml" />
+    <Content Include="Views\Admin\OpenAdminLanding.cshtml" />
+    <Content Include="Views\Shared\AdminPanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Doctor\" />
   </ItemGroup>
   <ItemGroup>
