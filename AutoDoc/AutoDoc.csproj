@@ -265,6 +265,7 @@
     <Content Include="Views\User\OpenUserDetails.cshtml" />
     <Content Include="Views\Admin\OpenAdminLanding.cshtml" />
     <Content Include="Views\Shared\AdminPanel.cshtml" />
+    <Content Include="Views\Admin\ManageDoctors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Doctor\" />
