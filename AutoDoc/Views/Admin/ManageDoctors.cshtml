@@ -44,7 +44,7 @@
                     </div>
                     <div class="frame-card-buttons-container">
                         <a href="@Url.Action("ShowUpdateForm", "Admin", new { type = "DOCTOR", id = doctor.Id })" class="frame-card-button">&#9998</a>
-                        <a href="@Url.Action("Delete", "Admin")" class="frame-card-button">&#10799</a>
+                        <a href="@Url.Action("Delete", "Admin", new { type = "DOCTOR", id = doctor.Id })" class="frame-card-button">&#10799</a>
                     </div>
                 </div>
             }

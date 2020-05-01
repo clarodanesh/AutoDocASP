@@ -121,6 +121,33 @@ namespace AutoDoc.Controllers
             }
         }
 
+
+
+        public ActionResult Delete(string type, int id)
+        {
+            var db = new userEntities();
+            var foundUser = db.users.Where(u => u.Id.Equals(id)).FirstOrDefault();
+            db.users.Remove(foundUser);
+            db.SaveChanges();
+
+            if (type == "DOCTOR")
+            {
+                return RedirectToAction("ManageDoctors", "Admin");
+            }
+            else if (type == "USER")
+            {
+                return RedirectToAction("ManagePatients", "Admin");
+            }
+            else if (type == "ADMIN")
+            {
+                return RedirectToAction("ManageAdmins", "Admin");
+            }
+            else
+            {
+                return RedirectToAction("OpenAdminLanding", "Admin");
+            }
+        }
+
         public ActionResult Cancel(string type)
         {
             if (type == "DOCTOR")
