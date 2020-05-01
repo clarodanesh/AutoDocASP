@@ -121,7 +121,91 @@ namespace AutoDoc.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult ShowAddForm()
+        {
+            var entities = new appointmentEntities();
+            //var currentUserEmail = Session["EMAIL"] as string;
+            //var v = entities.appointments.Where(u => u.user.Equals(currentUserEmail)).ToList();
+            if (Session["UTYPE"] as string == "ADMIN")
+            {
+                //do something interesting
 
+                //since the user who is logged in is a standard user
+                //open the users landing page
+                return View(/*entities.appointments.ToList()*/);
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ShowAddForm(string type, AddVM m)
+        {
+            
+            //var currentUserEmail = Session["EMAIL"] as string;
+            //var v = entities.appointments.Where(u => u.user.Equals(currentUserEmail)).ToList();
+            if (Session["UTYPE"] as string == "ADMIN")
+            {
+                if (ModelState.IsValid)
+                {
+                    var db = new userEntities();
+                    var currentUserEmail = m.email;
+
+                    var v = db.appointments.Where(u => u.user.Equals(currentUserEmail)).FirstOrDefault();
+
+                    if (v == null)
+                    {
+                        var hash = Crypto.HashPassword("password");
+
+                        db.users.Add(new user
+                        {
+                            email = m.email,
+                            firstname = m.firstname,
+                            lastname = m.lastname,
+                            password = hash,
+                            dob = m.dob,
+                            utype = type
+                        });
+                        db.SaveChanges();
+
+                        if (type == "DOCTOR")
+                        {
+                            return RedirectToAction("ManageDoctors", "Admin");
+                        }
+                        else if (type == "USER")
+                        {
+                            return RedirectToAction("ManagePatients", "Admin");
+                        }
+                        else if (type == "ADMIN")
+                        {
+                            return RedirectToAction("ManageAdmins", "Admin");
+                        }
+                        else
+                        {
+                            return RedirectToAction("OpenAdminLanding", "Admin");
+                        }
+                    }
+                    else
+                    {
+                        ViewData["Message"] = "User already exists";
+                    }
+                }
+                else
+                {
+                    return View();
+                }
+                return View();
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
 
         public ActionResult Delete(string type, int id)
         {

@@ -31,7 +31,7 @@
     <div id='main-content'>
         <div id='main-header'>Manage Doctors</div>
         <div id='admin-action-container'>
-            <a href="@Url.Action("ShowAddForm", "Admin")" class='admin-action-btn' id='add-btn'>Add</a>
+            <a href="@Url.Action("ShowAddForm", "Admin", new { type = "DOCTOR" })" class='admin-action-btn' id='add-btn'>Add</a>
             <!--<input class='admin-action-search' type="text" placeholder="Search">-->
         </div>
         <div id='admin-frame'>

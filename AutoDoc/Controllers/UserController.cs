@@ -61,10 +61,18 @@ namespace AutoDoc.Controllers
                 var v = db.users.Where(u => u.email.Equals(model.email)).FirstOrDefault();
                 if (v != null && v.email == model.email && Crypto.VerifyHashedPassword(v.password, model.password))
                 {
-                    //ViewData["Message"] = "Record exists";
-                    Session["UTYPE"] = v.utype;
-                    Session["EMAIL"] = v.email;
-                    return RedirectToAction("Index", "Home");
+                    if(Crypto.VerifyHashedPassword(v.password, "password"))
+                    {
+                        Session["TEMP"] = v.email;
+                        return RedirectToAction("ModifyPassword", "User");
+                    }
+                    else
+                    {
+                        //ViewData["Message"] = "Record exists";
+                        Session["UTYPE"] = v.utype;
+                        Session["EMAIL"] = v.email;
+                        return RedirectToAction("Index", "Home");
+                    } 
                 }
                 else
                 {
@@ -73,6 +81,48 @@ namespace AutoDoc.Controllers
             }
             return View(model);
             
+        }
+
+        [HttpGet]
+        public ActionResult ModifyPassword()
+        {
+            if (Session["TEMP"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ModifyPassword(PasswordVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var db = new userEntities();
+                var currentUserEmail = Session["TEMP"];
+
+                var v = db.users.Where(u => u.email == currentUserEmail).FirstOrDefault();
+
+                if (v != null)
+                {
+                    var hash = Crypto.HashPassword(model.password);
+                    v.password = hash;
+
+                    db.SaveChanges();
+                    //Session["UTYPE"] = "USER";
+                    //Session["EMAIL"] = Session["TEMP"];
+                    Session.Remove("TEMP");
+                    return RedirectToAction("Login", "User");
+                }
+                else
+                {
+                    ViewData["Message"] = "User doesnt exist";
+                }
+            }
+            return View(model);
         }
 
         [HttpGet]
@@ -111,7 +161,7 @@ namespace AutoDoc.Controllers
 
                 var v = db.appointments.Where(u => u.user.Equals(currentUserEmail)).FirstOrDefault();
 
-                if (v != null)
+                if (v == null)
                 {
                     var hash = Crypto.HashPassword(model.password);
                     var user = "USER";
