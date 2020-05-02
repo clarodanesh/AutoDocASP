@@ -1,11 +1,12 @@
 ﻿@model AutoDoc.ViewModels.RegisterVM
 @{
-	ViewBag.Title = "Register";
+    ViewBag.Title = "Register";
     Layout = null;
 }
 <head>
     <title>Register - AutoDoc</title>
     @Styles.Render("~/Content/autodoc-auth.css")
+    @Scripts.Render("~/Scripts/jquery.min.js")
     <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
 </head>
 
@@ -22,7 +23,8 @@
                {
                     @class = "auth-form-input",
                     @placeholder = "email",
-                    required = "required"
+                    required = "required",
+                    @id = "email"
                }
             })
         </div>
@@ -32,7 +34,8 @@
                {
                     @class = "auth-form-input",
                     @placeholder = "firstname",
-                    required = "required"
+                    required = "required",
+                    @id = "firstname"
                }
             })
         </div>
@@ -42,12 +45,13 @@
                {
                     @class = "auth-form-input",
                     @placeholder = "lastname",
-                    required = "required"
+                    required = "required",
+                    @id = "lastname"
                }
             })
         </div>
         <div class="auth-form-section">
-            @Html.PasswordFor(u => u.password, new { placeholder = "Password", @class = "auth-form-input", required = "required" })
+            @Html.PasswordFor(u => u.password, new { placeholder = "Password", @class = "auth-form-input", required = "required", @id = "password" })
         </div>
         <div class="auth-form-section">
             @Html.EditorFor(u => u.dob, new {
@@ -61,8 +65,10 @@
             })
         </div>
         <div id="auth-form-question">Already registered? @Html.ActionLink("Login", "Login", "User")</div>
-        <input class="auth-form-primary-btn" type="submit" value="Submit" />}
+        <input class="auth-form-primary-btn" id="register-btn" type="submit" value="Submit" />}
     @{Html.EndForm();}
 </div>
 
+@Scripts.Render("~/Scripts/validation.js")
+@Scripts.Render("~/Scripts/register.js")
 
