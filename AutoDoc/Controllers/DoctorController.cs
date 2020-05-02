@@ -16,11 +16,7 @@ namespace AutoDoc.Controllers
         {
             if (Session["UTYPE"] as string == "DOCTOR")
             {
-                //do something interesting
-
-                //since the user who is logged in is a standard user
-                //open the users landing page
-                return View(/*entities.appointments.ToList()*/);
+                return View();
 
             }
             else
@@ -29,6 +25,7 @@ namespace AutoDoc.Controllers
             }
         }
 
+        //delete the appointment from the db
         public ActionResult DeleteAppointment(int id)
         {
             var db = new appointmentEntities();

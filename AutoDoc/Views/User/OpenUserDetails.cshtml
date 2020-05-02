@@ -29,18 +29,6 @@
 <div id="view-appt-main">
     <div id="form-container">
 
-        <!--<div class="auth-form-section">
-            <input class="auth-form-input" type="date" name="dob" id="dob" value="<?php echo $dob; ?>" required>
-        </div>
-
-        <div class="auth-form-section">
-            <input class="auth-form-input" type="text" name="firstname" id="firstname" placeholder="<?php echo $firstname; ?>" required>
-        </div>
-
-        <div class="auth-form-section">
-            <input class="auth-form-input" type="text" name="lastname" id="lastname" placeholder="<?php echo $lastname; ?>" required>
-        </div>-->
-
         @using (Html.BeginForm("OpenUserDetails", "User", FormMethod.Post, new { @class = "user-form" }))
         {
             <div id="auth-form-title">Your Details</div>

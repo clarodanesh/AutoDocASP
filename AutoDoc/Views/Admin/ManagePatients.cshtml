@@ -7,7 +7,6 @@
     var userEntity = new AutoDoc.Models.userEntities();
 
     var returnedPatients = userEntity.users.Where(u => u.utype.Equals("USER")).ToList();
-    var s = 5;
 }
 
 <!DOCTYPE html>
@@ -19,20 +18,9 @@
 </head>
 
 <body>
-
-    <!--<a href="" class='admin-board'>
-        <div class='admin-board-header'>Doctors</div>
-        <div class='admin-board-content'>
-            <div class="number"></div>
-            <div class="caption">Active Doctors</div>
-        </div>
-    </a>-->
-
     <div id='main-content'>
         <div id='main-header'>Manage Patients</div>
         <div id='admin-action-container'>
-            
-            <!--<input class='admin-action-search' type="text" placeholder="Search">-->
         </div>
         <div id='admin-frame'>
             @foreach (var patient in returnedPatients)

@@ -9,6 +9,7 @@ namespace AutoDoc.ViewModels
     public class UserLandingVM
     {
 
+        //all of these must be set when booking appt
         [Required(ErrorMessage = "no doctor, ")]
         [Display(Name = "doctor")]
         public string doctor { get; set; }

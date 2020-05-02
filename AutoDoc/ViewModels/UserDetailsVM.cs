@@ -8,7 +8,7 @@ namespace AutoDoc.ViewModels
 {
     public class UserDetailsVM
     {
-
+        //all of these must be set when updating user details
         [Required(ErrorMessage = "no date, ")]
         [Display(Name = "date")]
         public string date { get; set; }

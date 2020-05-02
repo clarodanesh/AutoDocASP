@@ -11,8 +11,6 @@
 
     foreach (var item in check)
     {
-        /*@Html.Encode(item.firstname)
-        @Html.Encode(item.email)*/
         listItems.Add(new SelectListItem
         {
             Text = item.email,
@@ -53,8 +51,6 @@
 
 <div id="view-holder">
     <div id="form-container">
-        <!--<form class="auth-form" action="">-->
-        <!--<?php $attr = array('id' => 'book-form'); echo form_open('User_controller/BookAppt', $attr);?>-->
         <div class="auth-form" id="login-form">
             <div id="auth-form-title">Book an Appointment</div>
             <div id="auth-form-error">@{@Html.Encode(ViewData["Message"]); @Html.ValidationMessageFor(u => u.doctor); @Html.ValidationMessageFor(u => u.date); @Html.ValidationMessageFor(u => u.time)}</div>
@@ -94,8 +90,6 @@
             }
             @{Html.EndForm();}
         </div>
-        <!--</form>-->
-        <!--<?php echo form_close();?>-->
     </div>
 
     <div id="form-container">

@@ -16,11 +16,7 @@ namespace AutoDoc.Controllers
         {
             if (Session["UTYPE"] as string == "ADMIN")
             {
-                //do something interesting
-
-                //since the user who is logged in is a standard user
-                //open the users landing page
-                return View(/*entities.appointments.ToList()*/);
+                return View();
 
             }
             else
@@ -29,18 +25,14 @@ namespace AutoDoc.Controllers
             }
         }
 
+        //allows admin to manage the doctors
         public ActionResult ManageDoctors()
         {
             var entities = new appointmentEntities();
-            //var currentUserEmail = Session["EMAIL"] as string;
-            //var v = entities.appointments.Where(u => u.user.Equals(currentUserEmail)).ToList();
+
             if (Session["UTYPE"] as string == "ADMIN")
             {
-                //do something interesting
-
-                //since the user who is logged in is a standard user
-                //open the users landing page
-                return View(/*entities.appointments.ToList()*/);
+                return View();
 
             }
             else
@@ -49,18 +41,15 @@ namespace AutoDoc.Controllers
             }
         }
 
+        //opens the view to manage patients
         public ActionResult ManagePatients()
         {
             var entities = new appointmentEntities();
-            //var currentUserEmail = Session["EMAIL"] as string;
-            //var v = entities.appointments.Where(u => u.user.Equals(currentUserEmail)).ToList();
+
             if (Session["UTYPE"] as string == "ADMIN")
             {
-                //do something interesting
 
-                //since the user who is logged in is a standard user
-                //open the users landing page
-                return View(/*entities.appointments.ToList()*/);
+                return View();
 
             }
             else
@@ -69,18 +58,15 @@ namespace AutoDoc.Controllers
             }
         }
 
+        //allows admin to manage admins
         public ActionResult ManageAdmins()
         {
             var entities = new appointmentEntities();
-            //var currentUserEmail = Session["EMAIL"] as string;
-            //var v = entities.appointments.Where(u => u.user.Equals(currentUserEmail)).ToList();
+
             if (Session["UTYPE"] as string == "ADMIN")
             {
-                //do something interesting
 
-                //since the user who is logged in is a standard user
-                //open the users landing page
-                return View(/*entities.appointments.ToList()*/);
+                return View();
 
             }
             else
@@ -89,19 +75,16 @@ namespace AutoDoc.Controllers
             }
         }
 
+        //shpows the update user form
         [HttpGet]
         public ActionResult ShowUpdateForm()
         {
             var entities = new appointmentEntities();
-            //var currentUserEmail = Session["EMAIL"] as string;
-            //var v = entities.appointments.Where(u => u.user.Equals(currentUserEmail)).ToList();
+
             if (Session["UTYPE"] as string == "ADMIN")
             {
-                //do something interesting
 
-                //since the user who is logged in is a standard user
-                //open the users landing page
-                return View(/*entities.appointments.ToList()*/);
+                return View();
 
             }
             else
@@ -110,24 +93,19 @@ namespace AutoDoc.Controllers
             }
         }
 
+        //posts the update user form with get variables in url and viwew mdoel
         [HttpPost]
         public ActionResult ShowUpdateForm(string type, int id, UpdateVM m)
         {
             var entities = new userEntities();
-            //var currentUserEmail = Session["EMAIL"] as string;
-            //var v = entities.appointments.Where(u => u.user.Equals(currentUserEmail)).ToList();
+
             if (Session["UTYPE"] as string == "ADMIN")
             {
                 if (ModelState.IsValid)
                 {
-                    /*// get a tracked entity
-                    var entity = context.User.Find(userId);
-                    entity.someProp = someValue;
-                    // other property changes might come here
-                    context.SaveChanges();*/
+
                     var db = new userEntities();
                     var foundUser = db.users.Where(u => u.Id.Equals(id)).FirstOrDefault();
-                    //var foundUser = db.users.Find(currentUserEmail);
 
                     foundUser.dob = m.dob;
                     foundUser.firstname = m.firstname;
@@ -161,19 +139,16 @@ namespace AutoDoc.Controllers
             }
         }
 
+        //shows the add user form
         [HttpGet]
         public ActionResult ShowAddForm()
         {
             var entities = new appointmentEntities();
-            //var currentUserEmail = Session["EMAIL"] as string;
-            //var v = entities.appointments.Where(u => u.user.Equals(currentUserEmail)).ToList();
+
             if (Session["UTYPE"] as string == "ADMIN")
             {
-                //do something interesting
 
-                //since the user who is logged in is a standard user
-                //open the users landing page
-                return View(/*entities.appointments.ToList()*/);
+                return View();
 
             }
             else
@@ -182,12 +157,12 @@ namespace AutoDoc.Controllers
             }
         }
 
+        //post the add user form with type from url
         [HttpPost]
         public ActionResult ShowAddForm(string type, AddVM m)
         {
             
-            //var currentUserEmail = Session["EMAIL"] as string;
-            //var v = entities.appointments.Where(u => u.user.Equals(currentUserEmail)).ToList();
+
             if (Session["UTYPE"] as string == "ADMIN")
             {
                 if (ModelState.IsValid)
@@ -247,6 +222,7 @@ namespace AutoDoc.Controllers
             }
         }
 
+        //delete a user
         public ActionResult Delete(string type, int id)
         {
             var db = new userEntities();
@@ -272,6 +248,7 @@ namespace AutoDoc.Controllers
             }
         }
 
+        //cancel the form
         public ActionResult Cancel(string type)
         {
             if (type == "DOCTOR")

@@ -17,21 +17,20 @@ namespace AutoDoc.Controllers
             return View();
         }
 
+        //displays the users NOT USED, was just for test from labsheets
         public ActionResult DisplayUsers()
         {
             var entities = new userEntities();
             return View(entities.users.ToList());
         }
 
+        //Get the login view if session set then route to correct controller
         [HttpGet]
         public ActionResult Login()
         {
             if (Session["UTYPE"] as string == "USER" && Session["EMAIL"] != null)
             {
-                //do something interesting
 
-                //since the user who is logged in is a standard user
-                //open the users landing page
                 return RedirectToAction("OpenUserLanding", "User");
 
             }
@@ -47,9 +46,9 @@ namespace AutoDoc.Controllers
             {
                 return View();
             }
-            //return View();
         }
 
+        //post the login data and login
         [HttpPost]
         public ActionResult Login(LoginVM model)
         {
@@ -83,6 +82,7 @@ namespace AutoDoc.Controllers
             
         }
 
+        //modifies the password if pass is "password"
         [HttpGet]
         public ActionResult ModifyPassword()
         {
@@ -96,6 +96,7 @@ namespace AutoDoc.Controllers
             }
         }
 
+        //post the modified password and update in db
         [HttpPost]
         public ActionResult ModifyPassword(PasswordVM model)
         {
@@ -112,8 +113,7 @@ namespace AutoDoc.Controllers
                     v.password = hash;
 
                     db.SaveChanges();
-                    //Session["UTYPE"] = "USER";
-                    //Session["EMAIL"] = Session["TEMP"];
+
                     Session.Remove("TEMP");
                     return RedirectToAction("Login", "User");
                 }
@@ -125,15 +125,13 @@ namespace AutoDoc.Controllers
             return View(model);
         }
 
+        //get the createuser view (register) 
         [HttpGet]
         public ActionResult CreateUser()
         {
             if (Session["UTYPE"] as string == "USER" && Session["EMAIL"] != null)
             {
-                //do something interesting
 
-                //since the user who is logged in is a standard user
-                //open the users landing page
                 return RedirectToAction("OpenUserLanding", "User");
 
             }
@@ -151,6 +149,7 @@ namespace AutoDoc.Controllers
             }
         }
 
+        //post the data to db and register the user
         [HttpPost]
         public ActionResult CreateUser(RegisterVM model)
         {
@@ -188,19 +187,16 @@ namespace AutoDoc.Controllers
             return View(model);
         }
 
+        //open the users main landing page
         [HttpGet]
         public ActionResult OpenUserLanding()
         {
             var entities = new appointmentEntities();
-            //var currentUserEmail = Session["EMAIL"] as string;
-            //var v = entities.appointments.Where(u => u.user.Equals(currentUserEmail)).ToList();
+
             if (Session["UTYPE"] as string == "USER")
             {
-                //do something interesting
 
-                //since the user who is logged in is a standard user
-                //open the users landing page
-                return View(/*entities.appointments.ToList()*/);
+                return View();
 
             }
             else
@@ -209,6 +205,7 @@ namespace AutoDoc.Controllers
             }
         }
 
+        //post the data to the db to book appt
         [HttpPost]
         public ActionResult OpenUserLanding(UserLandingVM m)
         {
@@ -262,6 +259,7 @@ namespace AutoDoc.Controllers
             return View(m);
         }
 
+        //check if the time is between opening and closing time of surgery
         private bool IsTimeCorrect(string t)
         {
             string[] splitTime = t.Split(':');
@@ -276,6 +274,7 @@ namespace AutoDoc.Controllers
             }
         }
 
+        //check if the date is not in the past
         private bool IsDateFuture(string d)
         {
             DateTime systemDate = DateTime.UtcNow.Date;
@@ -314,19 +313,16 @@ namespace AutoDoc.Controllers
             }
         }
 
+        //open the user detail update view
         [HttpGet]
         public ActionResult OpenUserDetails()
         {
             var entities = new appointmentEntities();
-            //var currentUserEmail = Session["EMAIL"] as string;
-            //var v = entities.appointments.Where(u => u.user.Equals(currentUserEmail)).ToList();
+
             if (Session["UTYPE"] as string == "USER")
             {
-                //do something interesting
 
-                //since the user who is logged in is a standard user
-                //open the users landing page
-                return View(/*entities.appointments.ToList()*/);
+                return View();
 
             }
             else
@@ -335,20 +331,17 @@ namespace AutoDoc.Controllers
             }
         }
 
+        //post the updated details to db
         [HttpPost]
         public ActionResult OpenUserDetails(UserDetailsVM m)
         {
             if (ModelState.IsValid)
             {
-                /*// get a tracked entity
-                var entity = context.User.Find(userId);
-                entity.someProp = someValue;
-                // other property changes might come here
-                context.SaveChanges();*/
+
                 var db = new userEntities();
                 var currentUserEmail = Session["EMAIL"] as string;
                 var foundUser = db.users.Where(u => u.email.Equals(currentUserEmail) && u.utype.Equals("USER")).FirstOrDefault();
-                //var foundUser = db.users.Find(currentUserEmail);
+
 
                 foundUser.dob = m.date;
                 foundUser.firstname = m.firstname;
@@ -361,6 +354,7 @@ namespace AutoDoc.Controllers
             return View(m);
         }
 
+        //cancel an already set appt
         public ActionResult CancelAppointment()
         {
             var db = new appointmentEntities();
@@ -372,6 +366,7 @@ namespace AutoDoc.Controllers
             return RedirectToAction("OpenUserLanding", "User");
         }
 
+        //log the users off by clearing session data
         public ActionResult Logout()
         {
             Session.Clear();

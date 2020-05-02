@@ -9,6 +9,7 @@ namespace AutoDoc.ViewModels
     public class UpdateVM
     {
 
+        //all of these must be set when doing an update
         [Required(ErrorMessage = "no date, ")]
         [Display(Name = "date")]
         public string dob { get; set; }
