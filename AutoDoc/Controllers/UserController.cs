@@ -228,16 +228,30 @@ namespace AutoDoc.Controllers
                     }
                     else
                     {
-                        db.appointments.Add(new appointment
+                        if (IsTimeCorrect(m.time))
                         {
-                            doctor = m.doctor,
-                            user = Session["EMAIL"] as string,
-                            date = m.date,
-                            time = m.time,
-                            astate = "booked"
-                        });
-                        db.SaveChanges();
-                        return RedirectToAction("OpenUserLanding", "User");
+                            if (IsDateFuture(m.date))
+                            {
+                                db.appointments.Add(new appointment
+                                {
+                                    doctor = m.doctor,
+                                    user = Session["EMAIL"] as string,
+                                    date = m.date,
+                                    time = m.time,
+                                    astate = "booked"
+                                });
+                                db.SaveChanges();
+                                return RedirectToAction("OpenUserLanding", "User");
+                            }
+                            else
+                            {
+                                ViewData["Message"] = "You need to select a date in the future";
+                            }
+                        }
+                        else
+                        {
+                            ViewData["Message"] = "Surgery is only open between 9:00 and 17:30";
+                        }
                     }
                 }
                 else
@@ -246,6 +260,58 @@ namespace AutoDoc.Controllers
                 }
             }
             return View(m);
+        }
+
+        private bool IsTimeCorrect(string t)
+        {
+            string[] splitTime = t.Split(':');
+            int intTime = int.Parse(splitTime[0]);
+            if (intTime <= 17 && intTime >= 9)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool IsDateFuture(string d)
+        {
+            DateTime systemDate = DateTime.UtcNow.Date;
+            string formattedDate = systemDate.ToString("yyyy-MM-dd");
+            string[] currDate = formattedDate.Split('-');
+            string[] selectedDate = d.Split('-');
+            int year, month, day, selectedYear, selectedMonth, selectedDay;
+            selectedYear = int.Parse(selectedDate[0]);
+            selectedMonth = int.Parse(selectedDate[1]);
+            selectedDay = int.Parse(selectedDate[2]);
+            year = int.Parse(currDate[0]);
+            month = int.Parse(currDate[1]);
+            day = int.Parse(currDate[2]);
+
+
+            if (selectedYear >= year)
+            {
+                if(selectedMonth >= month || (selectedYear > year && selectedMonth <= month)){
+                    if (selectedDay >= day || (selectedMonth > month && selectedDay <= day) || (selectedYear > year && selectedMonth <= month && selectedDay <= day))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
         [HttpGet]
