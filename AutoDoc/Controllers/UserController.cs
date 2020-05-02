@@ -221,16 +221,24 @@ namespace AutoDoc.Controllers
 
                 if (v == null)
                 {
-                    db.appointments.Add(new appointment
+                    var aBooking = db.appointments.Where(u => u.doctor.Equals(m.doctor) && u.date.Equals(m.date) && u.time.Equals(m.time) && u.astate.Equals("booked")).FirstOrDefault();
+                    if (aBooking != null)
                     {
-                        doctor = m.doctor,
-                        user = Session["EMAIL"] as string,
-                        date = m.date,
-                        time = m.time,
-                        astate = "booked"
-                    });
-                    db.SaveChanges();
-                    return RedirectToAction("OpenUserLanding", "User");
+                        ViewData["Message"] = "This doctor is booked at this time and on this date, choose another";
+                    }
+                    else
+                    {
+                        db.appointments.Add(new appointment
+                        {
+                            doctor = m.doctor,
+                            user = Session["EMAIL"] as string,
+                            date = m.date,
+                            time = m.time,
+                            astate = "booked"
+                        });
+                        db.SaveChanges();
+                        return RedirectToAction("OpenUserLanding", "User");
+                    }
                 }
                 else
                 {
