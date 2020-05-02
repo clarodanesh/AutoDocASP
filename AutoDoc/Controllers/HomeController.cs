@@ -28,7 +28,7 @@ namespace AutoDoc.Controllers
             }
             else if (Session["UTYPE"] as string == "DOCTOR")
             {
-                return RedirectToAction("About", "Home");
+                return RedirectToAction("OpenDoctorLanding", "Doctor");
             }
             else
             {

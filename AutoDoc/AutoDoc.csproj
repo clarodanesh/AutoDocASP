@@ -187,6 +187,7 @@
     </Content>
     <Content Include="Content\autodoc-admin.css" />
     <Content Include="Content\autodoc-auth.css" />
+    <Content Include="Content\autodoc-doc.css" />
     <Content Include="Content\autodoc-user.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -235,6 +236,7 @@
       <DependentUpon>appointment.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\doctor.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -276,10 +278,10 @@
     <Content Include="Views\User\ModifyPassword.cshtml" />
     <Content Include="Views\Admin\ManagePatients.cshtml" />
     <Content Include="Views\Admin\ManageAdmins.cshtml" />
+    <Content Include="Views\Doctor\OpenDoctorLanding.cshtml" />
+    <Content Include="Views\Doctor\DeleteAppointment.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Doctor\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
