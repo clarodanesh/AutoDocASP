@@ -1,0 +1,325 @@
+﻿body{
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+#admin-side-panel{
+    width: 300px;
+    height: 100%;
+    background-color: #3394FF;
+    font-family: 'Ubuntu', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+#admin-panel-header{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 10px;
+    background-color:   #3394FF;
+    color: #FFFFFF;
+}
+
+.side-panel-link{
+    background-color: #3394FF;
+    line-height: 50px;
+    height: 50px;
+    padding-left: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: #FFFFFF;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: 1px solid #FFFFFF;
+    text-decoration: none;
+}
+
+.side-panel-link:hover{
+    box-shadow: 0px 0px 20px -5px rgba(0,0,0,0.7);
+    transition: 0.3s;
+}
+
+#logout-btn{
+    text-decoration: none;
+}
+
+#main-content{
+    width: 1620px;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+#main-header{
+    height: 50px;
+    top: 0;
+    width: auto;
+    display: flex;
+    align-items: baseline;
+    line-height: 50px;
+    justify-content: center;
+    font-size: 2rem;
+    font-family: 'Ubuntu', sans-serif;
+    color: #3394FF;
+}
+
+.admin-board-container{
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+}
+
+#bottom-admin-board-container{
+    margin-top: 10px;
+}
+
+.full-width-board{
+    width: 100% !important;
+}
+
+.admin-board{
+    height: 350px;
+    width: 50%;
+    background-color: #FFFFFF;
+    border-radius: 25px;
+    border: 2px solid #3394FF;
+    transition: 0.2s;
+    color: #3394FF;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.admin-board:hover{
+    background-color: #3394FF;
+    border: 2px solid #3394FF;
+    box-shadow: 0px 0px 40px -15px rgba(0,0,0,0.5);
+    transition: 0.2s;
+    color: #FFFFFF;
+}
+
+.right-admin-board{
+    margin-left: 10px;
+}
+
+.admin-board-header{
+    height: 50px;
+    line-height: 50px;
+    align-items: baseline;
+    display: flex;
+    justify-content: center;
+    font-size: 2rem;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.admin-board-content{
+    height: 250px;
+    display: block;
+    text-align: center;
+}
+
+#admin-action-container{
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2px;
+}
+
+.admin-action-btn{
+    height: 50px;
+    width: 100px;
+    background-color: #FFFFFF;
+    line-height: 50px;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+    text-decoration: none;
+    color: #3394FF;
+    box-shadow: inset 0 0 0 1px #3394FF;
+}
+
+.admin-action-search{
+    /*! height: 50px; */
+    width: 300px;
+    background-color: #FFFFFF;
+    -webkit-appearance: none;
+    border: none;
+    box-shadow: inset 0 0 0 1px #3394FF;
+    color: #3394FF;
+}
+
+#admin-frame{
+    padding-right: 10px;
+    padding-left: 10px;
+    overflow-y: scroll;
+    border: 1px solid #3394FF;
+}
+
+.frame-cards{
+    height: 100px;
+    background-color: #3394FF;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    font-family: 'Ubuntu', sans-serif;
+    color: #FFFFFF;
+}
+
+.frame-card-info-container{
+    height: inherit;
+    width: 50%;
+    padding-left: 10px;
+}
+
+.frame-card-cont-text{
+    height: 50px;
+    line-height: 50px;
+}
+
+.frame-card-buttons-container{
+    width: 50%;
+    height: inherit;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    /*! margin-right: 10px; */
+}
+
+.frame-card-button{
+    height: inherit;
+    line-height: 100px;
+    margin-right: 10px;
+    width: 100px;
+    /*! align-items: center; *//*! display: flex; */
+    text-align: center;
+    font-size: 3.5rem;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.modal-form-container{
+    display: grid;
+    height: 100vh;
+    place-items: center;
+    background-color: #000000b0;
+    position: absolute;
+    width: 100%;
+}
+
+.admin-modal-form{
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    background-color: #FFFFFF;
+    border: 3px solid #d7d7d7;
+    align-items: center;
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.25);
+}
+
+.admin-modal-form-section{
+    margin-top: 30px;
+}
+
+.admin-modal-form-input{
+   font-family: 'Ubuntu', sans-serif;
+    width: 100%;
+    -webkit-appearance: none;
+    border: none;
+    height: 40px;
+    background-color: #b9b9b93d; 
+}
+
+.admin-modal-form-input:hover{
+    background-color: #6464643d;
+    transition: 0.2s;
+}
+
+.admin-modal-form-input:focus{
+    background-color: #6464643d;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.35);
+    transition: 0.2s;
+}
+
+.admin-modal-form-title{
+    font-size: 2.5rem;
+    font-family: 'Ubuntu', sans-serif;
+    margin-bottom: 100px;
+    color: #3394FF;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.admin-form-primary-btn{
+    font-family: 'Ubuntu', sans-serif;
+    margin-top: 20px;
+    -webkit-appearance: none;
+    border: none;
+    height: 40px;
+    width: 90px;
+    background-color: #3394FF;
+    color: #FFFFFF;
+    cursor: pointer;  
+    margin-bottom: 10px; 
+}
+
+.admin-form-primary-btn:hover{
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.35);
+    transition: 0.2s;
+    background-color: #7FBCFF;  
+}
+
+.admin-form-secondary-btn{
+    font-family: 'Ubuntu', sans-serif;
+    margin-top: 20px;
+    -webkit-appearance: none;
+    border: none;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    width: 90px;
+    background-color: #FFFFFF;
+    color: #3394FF;
+    cursor: pointer;  
+    margin-bottom: 10px; 
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.admin-form-secondary-btn:hover{
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.35);
+    transition: 0.2s;
+    background-color: #FFFFFF;  
+}
+
+.modal-form-btn-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 200px;
+}
+
+#dob{
+    width: 230px;
+}
+
+#admin-form-error{
+    font-family: 'Ubuntu', sans-serif;
+    color: red;
+}
+
+.number{
+    font-size: 11rem;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.caption{
+    font-family: 'Ubuntu', sans-serif;
+}

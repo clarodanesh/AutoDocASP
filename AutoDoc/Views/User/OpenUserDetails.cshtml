@@ -1,0 +1,78 @@
+﻿@model AutoDoc.ViewModels.UserDetailsVM
+@{
+    ViewBag.Title = "OpenUserDetails";
+    Layout = "../Shared/UserNav.cshtml";
+}
+@{
+    var userEntity = new AutoDoc.Models.userEntities();
+    var currUserEmail = Session["EMAIL"] as string;
+
+    var returnedUser = userEntity.users.Where(u => u.email.Equals(currUserEmail) && u.utype.Equals("USER")).ToList();
+    var firstname = "";
+    var lastname = "";
+
+
+    foreach (var rUser in returnedUser)
+    {
+        firstname = rUser.firstname;
+        lastname = rUser.lastname;
+    }
+}
+
+<head>
+    <title>User Details - AutoDoc</title>
+    @Styles.Render("~/Content/autodoc-user.css")
+    @Styles.Render("~/Content/autodoc-auth.css")
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+
+<div id="view-appt-main">
+    <div id="form-container">
+
+        @using (Html.BeginForm("OpenUserDetails", "User", FormMethod.Post, new { @class = "user-form" }))
+        {
+            <div id="auth-form-title">Your Details</div>
+            <div id="auth-form-error"></div>
+            <div class="auth-form-section">
+                @Html.EditorFor(u => u.date, new
+                {
+                   htmlAttributes = new
+                   {
+                       @type = "date",
+                       @class = "auth-form-input",
+                       /*@placeholder = "date of birth"*/
+                       required="required"
+                   }
+                })
+            </div>
+            <div class="auth-form-section">
+                @Html.EditorFor(u => u.firstname, new
+                {
+                   htmlAttributes = new
+                   {
+                       @type = "text",
+                       @placeholder = @Html.Encode(firstname),
+                       @class = "auth-form-input",
+                       required="required"
+                   }
+                })
+            </div>
+            <div class="auth-form-section">
+                @Html.EditorFor(u => u.lastname, new
+                {
+                   htmlAttributes = new
+                   {
+                       @type = "text",
+                       @placeholder = @Html.Encode(lastname),
+                       @class = "auth-form-input",
+                       /*@placeholder = "date of birth"*/
+                       required="required"
+                   }
+                })
+            </div>
+            <input class="auth-form-primary-btn" id="save-btn" type="submit" value="Save">
+        }
+        @{Html.EndForm();}
+    </div>
+</div>
+

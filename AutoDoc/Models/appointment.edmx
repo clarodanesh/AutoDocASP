@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="appointmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="appointments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="doctor" Type="nvarchar" MaxLength="50" />
+          <Property Name="user" Type="nvarchar" MaxLength="50" />
+          <Property Name="date" Type="nvarchar" MaxLength="50" />
+          <Property Name="time" Type="nvarchar" MaxLength="50" />
+          <Property Name="astate" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="appointmentModelStoreContainer">
+          <EntitySet Name="appointments" EntityType="Self.appointments" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="appointmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="appointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="doctor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="user" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="astate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="appointmentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="appointments" EntityType="Self.appointment" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="appointmentModelStoreContainer" CdmEntityContainer="appointmentEntities">
+          <EntitySetMapping Name="appointments">
+            <EntityTypeMapping TypeName="appointmentModel.appointment">
+              <MappingFragment StoreEntitySet="appointments">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="doctor" ColumnName="doctor" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="astate" ColumnName="astate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,62 @@
+﻿@model AutoDoc.Models.user
+@{
+    ViewBag.Title = "OpenDoctorLanding";
+    Layout = null;
+}
+@{
+    var appointmentEntity = new AutoDoc.Models.appointmentEntities();
+
+    var docEmail = Session["EMAIL"] as string;
+
+    var returnedAppts = appointmentEntity.appointments.Where(u => u.doctor.Equals(docEmail) && u.astate.Equals("booked")).ToList();
+    var s = 5;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Booked Appointments - AutoDoc</title>
+    @Styles.Render("~/Content/autodoc-auth.css")
+    @Styles.Render("~/Content/autodoc-doc.css")
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+
+    @Scripts.Render("~/Scripts/jquery.min.js")
+    <script src="<?php echo base_url(); ?>js/jquery.validate.min.js"></script>
+    <script src="<?php echo base_url(); ?>js/additional-methods.min.js"></script>
+</head>
+<body>
+
+    <div id="doc-title">Your Appointments</div>
+    <div id="appt-container">
+        <div id="appt-holder">
+            <div id='admin-frame'>
+                @foreach (var appointment in returnedAppts)
+                {
+                    <div class="frame-cards">
+                        <div class="frame-card-info-container">
+                            <div class="frame-card-cont-text">Patient Email: @Html.Encode(appointment.user)</div>
+                            <div class="frame-card-cont-text">Date: @Html.Encode(appointment.date)</div>
+                            <div class="frame-card-cont-text">Time: @Html.Encode(appointment.time)</div>
+                        </div>
+                        <div class="frame-card-buttons-container">
+                            <a href="@Url.Action("DeleteAppointment", "Doctor", new { id = appointment.Id })" class="frame-card-button">&#10799</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div id="logger">Logged in as: @Html.Encode(Session["EMAIL"])</div>
+        @Html.ActionLink("Log Out", "Logout", "User", null, new { @id = "logout" })
+    </div>
+
+    @Scripts.Render("~/Scripts/doctor.js")
+    <script src="<?php echo base_url(); ?>js/doctor.js"></script>
+</body>
+</html>
+

@@ -3,26 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AutoDoc.Models;
 
 namespace AutoDoc.Controllers
 {
     public class HomeController : Controller
     {
+        //routes the user if logged in to correct controller or to login
         public ActionResult Index()
         {
-            return View();
+
+            if (Session["UTYPE"] as string == "USER")
+            {
+                return RedirectToAction("OpenUserLanding", "User");
+            }
+            else if (Session["UTYPE"] as string == "ADMIN")
+            {
+                return RedirectToAction("OpenAdminLanding", "Admin");
+            }
+            else if (Session["UTYPE"] as string == "DOCTOR")
+            {
+                return RedirectToAction("OpenDoctorLanding", "Doctor");
+            }
+            else
+            {
+                return RedirectToAction("Login", "User");
+            }
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "about not used";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "contact not used";
 
             return View();
         }

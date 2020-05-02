@@ -1,0 +1,40 @@
+﻿@model AutoDoc.ViewModels.LoginVM
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+<head>
+    <title>Login - AutoDoc</title>
+    @Styles.Render("~/Content/autodoc-auth.css")
+    @Scripts.Render("~/Scripts/jquery.min.js")
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+
+<div id="auth-form-container">
+    @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @class = "auth-form" }))
+    {
+        <div id="auth-form-title">Login to AutoDoc</div>
+        <img id="auth-form-logo" src="../Images/logo.png" />
+        <div id="auth-form-hint">Use your Email and Password</div>
+        <div id="auth-form-error">@{@Html.Encode(ViewData["Message"]); @Html.ValidationMessageFor(u => u.email); @Html.ValidationMessageFor(u => u.password)}</div>
+        <div class="auth-form-section">
+            @Html.EditorFor(u => u.email, new {
+               htmlAttributes = new
+               {
+                    @class = "auth-form-input",
+                    @id = "email",
+                    @placeholder = "email",
+                    required = "required"
+               }
+            })
+        </div>
+        <div class="auth-form-section">
+            @Html.PasswordFor(u => u.password, new { placeholder = "Password", @class = "auth-form-input", required = "required", @id = "password" })
+        </div>
+        <div id="auth-form-question">Not registered? @Html.ActionLink("Register", "CreateUser", "User")</div>
+        <input class="auth-form-primary-btn" id="login-btn" type="submit" value="Submit" />}
+    @{Html.EndForm();}
+</div>
+
+@Scripts.Render("~/Scripts/validation.js")
+@Scripts.Render("~/Scripts/login.js")

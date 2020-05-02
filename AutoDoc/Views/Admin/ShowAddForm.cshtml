@@ -1,0 +1,74 @@
+﻿@model AutoDoc.ViewModels.AddVM
+@{
+    ViewBag.Title = "ShowAddForm";
+    Layout = null;
+}
+@{
+    var pageType = Context.Request.QueryString["type"];
+}
+
+<head>
+    <title>AutoDoc Dasboard - AutoDoc</title>
+    @Styles.Render("~/Content/autodoc-admin.css")
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+<div class="modal-form-container">
+    @using (Html.BeginForm("ShowAddForm", "Admin", new { @type = pageType }, FormMethod.Post, new { @class = "admin-modal-form" }))
+    {
+
+        <div class="admin-modal-form-title">Add</div>
+        <div id="auth-form-error">@{@Html.Encode(ViewData["Message"]); @Html.ValidationMessageFor(u => u.dob); @Html.ValidationMessageFor(u => u.dob); @Html.ValidationMessageFor(u => u.firstname); @Html.ValidationMessageFor(u => u.lastname)}</div>
+
+        <div class="admin-modal-form-section">
+            @Html.EditorFor(u => u.email, new {
+           htmlAttributes = new
+           {
+                    type = "text",
+                    @class = "admin-modal-form-input",
+                    @placeholder = "email",
+                    required = "required"
+               }
+            })
+        </div>
+
+        <div class="admin-modal-form-section">
+            @Html.EditorFor(u => u.dob, new {
+           htmlAttributes = new
+           {
+                    type = "date",
+                    @class = "admin-modal-form-input",
+                    @placeholder = "date of birth",
+                    required = "required"
+               }
+            })
+        </div>
+
+        <div class="admin-modal-form-section">
+            @Html.EditorFor(u => u.firstname, new {
+               htmlAttributes = new
+               {
+                    @class = "admin-modal-form-input",
+                    @placeholder = "firstname",
+                    required = "required"
+               }
+            })
+        </div>
+
+        <div class="admin-modal-form-section">
+            @Html.EditorFor(u => u.lastname, new {
+               htmlAttributes = new
+               {
+                    @class = "admin-modal-form-input",
+                    @placeholder = "lastname",
+                    required = "required"
+               }
+            })
+        </div>
+
+        <div class="modal-form-btn-container">
+            @Html.ActionLink("Cancel", "Cancel", "Admin", new { type = pageType }, new { @class = "admin-form-secondary-btn" })
+            <input class="admin-form-primary-btn" id="login-btn" type="submit" value="Add">
+        </div>}
+    @{Html.EndForm();}
+</div>
+

@@ -1,0 +1,74 @@
+﻿@model AutoDoc.ViewModels.RegisterVM
+@{
+    ViewBag.Title = "Register";
+    Layout = null;
+}
+<head>
+    <title>Register - AutoDoc</title>
+    @Styles.Render("~/Content/autodoc-auth.css")
+    @Scripts.Render("~/Scripts/jquery.min.js")
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+
+<div id="auth-form-container">
+    @using (Html.BeginForm("CreateUser", "User", FormMethod.Post, new { @class = "auth-form" }))
+    {
+        <div id="auth-form-title">Register to AutoDoc</div>
+        <img id="auth-form-logo" src="../Images/logo.png" />
+        <div id="auth-form-hint">Create an account with AutoDoc</div>
+        <div id="auth-form-error">@{@Html.Encode(ViewData["Message"]); @Html.ValidationMessageFor(u => u.email); @Html.ValidationMessageFor(u => u.password); @Html.ValidationMessageFor(u => u.firstname); @Html.ValidationMessageFor(u => u.lastname); @Html.ValidationMessageFor(u => u.dob);}</div>
+        <div class="auth-form-section">
+            @Html.EditorFor(u => u.email, new {
+               htmlAttributes = new
+               {
+                    @class = "auth-form-input",
+                    @placeholder = "email",
+                    required = "required",
+                    @id = "email"
+               }
+            })
+        </div>
+        <div class="auth-form-section">
+            @Html.EditorFor(u => u.firstname, new {
+               htmlAttributes = new
+               {
+                    @class = "auth-form-input",
+                    @placeholder = "firstname",
+                    required = "required",
+                    @id = "firstname"
+               }
+            })
+        </div>
+        <div class="auth-form-section">
+            @Html.EditorFor(u => u.lastname, new {
+               htmlAttributes = new
+               {
+                    @class = "auth-form-input",
+                    @placeholder = "lastname",
+                    required = "required",
+                    @id = "lastname"
+               }
+            })
+        </div>
+        <div class="auth-form-section">
+            @Html.PasswordFor(u => u.password, new { placeholder = "Password", @class = "auth-form-input", required = "required", @id = "password" })
+        </div>
+        <div class="auth-form-section">
+            @Html.EditorFor(u => u.dob, new {
+               htmlAttributes = new
+               {
+                    @type = "date",
+                    @class = "auth-form-input",
+                    required = "required"
+                    /*@placeholder = "date of birth"*/
+               }
+            })
+        </div>
+        <div id="auth-form-question">Already registered? @Html.ActionLink("Login", "Login", "User")</div>
+        <input class="auth-form-primary-btn" id="register-btn" type="submit" value="Submit" />}
+    @{Html.EndForm();}
+</div>
+
+@Scripts.Render("~/Scripts/validation.js")
+@Scripts.Render("~/Scripts/register.js")
+

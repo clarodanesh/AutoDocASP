@@ -1,0 +1,110 @@
+﻿@model AutoDoc.ViewModels.UserLandingVM
+@{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+
+    var db = new AutoDoc.Models.userEntities();
+
+    var v = db.users.Where(u => u.utype.Equals("DOCTOR")).ToList();
+
+    var check = v;
+    //var check = db.users.ToList();
+
+    foreach (var item in check)
+    {
+        listItems.Add(new SelectListItem
+        {
+            Text = item.email,
+            Value = item.email
+        });
+    }
+}
+    
+@{ 
+    var appointmentsEntity = new AutoDoc.Models.appointmentEntities();
+    var currUserEmail = Session["EMAIL"] as string;
+
+    var returnedBooking = appointmentsEntity.appointments.Where(u => u.user.Equals(currUserEmail) && u.astate.Equals("booked")).ToList();
+    var doc = "";
+    var date = "";
+    var time = "";
+
+
+    foreach (var booking in returnedBooking)
+    {
+        doc = booking.doctor;
+        date = booking.date;
+        time = booking.time;
+    }
+}
+
+@{
+    ViewBag.Title = "OpenUserLanding";
+    Layout = "../Shared/UserNav.cshtml";
+}
+
+<head>
+    <title>Bookings - AutoDoc</title>
+    @Styles.Render("~/Content/autodoc-user.css")
+    @Styles.Render("~/Content/autodoc-auth.css")
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+
+<div id="view-holder">
+    <div id="form-container">
+        <div class="auth-form" id="login-form">
+            <div id="auth-form-title">Book an Appointment</div>
+            <div id="auth-form-error">@{@Html.Encode(ViewData["Message"]); @Html.ValidationMessageFor(u => u.doctor); @Html.ValidationMessageFor(u => u.date); @Html.ValidationMessageFor(u => u.time)}</div>
+            @using (Html.BeginForm("OpenUserLanding", "User", FormMethod.Post))
+            {
+                @Html.DropDownListFor(u => u.doctor, listItems, "-- Select Doctor --", new { @class = "auth-form-input", required = "required" })
+                <div class="auth-form-section">
+                    @Html.EditorFor(u => u.date, new
+                {
+                   htmlAttributes = new
+                   {
+                       @type = "date",
+                       @class = "auth-form-input",
+                       /*@placeholder = "date of birth"*/
+                       required="required"
+                   }
+                })
+                </div>
+                <div class="auth-form-section">
+                    @Html.EditorFor(u => u.time, new
+                {
+                   htmlAttributes = new
+                   {
+                       @type = "time",
+                       @class = "auth-form-input",
+                       /*@placeholder = "date of birth"*/
+                       required = "required",
+                       min = "09:00",
+                       max = "17:00",
+                       step = "1800"
+
+                       //min="09:00" max="17:00" step="1800"
+                   }
+                })
+                </div>
+                <input class="auth-form-primary-btn" type="submit" value="Submit" />
+            }
+            @{Html.EndForm();}
+        </div>
+    </div>
+
+    <div id="form-container">
+        <div id="view-appt-view">
+            <div id="auth-form-title">Your Booking</div>
+            @{
+                if (doc != "")
+                {
+                    <div class="user-detail">Doctors Email: @Html.Encode(doc)</div>
+                    <div class="user-detail">Date: @Html.Encode(date)</div>
+                    <div class="user-detail">Time: @Html.Encode(time)</div>
+                    @Html.ActionLink("Cancel", "CancelAppointment", "User", new { @class = "auth-form-primary-btn", @id = "cancel" })
+                }
+            }
+        </div>
+    </div>
+</div>
+

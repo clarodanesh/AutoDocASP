@@ -1,0 +1,32 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    @Styles.Render("~/Content/autodoc-user.css")
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="user-nav">
+        <div id="branding-container">
+            <img id="logo-img" src="../Images/logo-no-text.png" />
+            <div id="logo-text">AutoDoc</div>
+        </div>
+        <div id="link-container">
+            @Html.ActionLink("Bookings", "OpenUserLanding", "User", new { @class = "link" })
+            @Html.ActionLink("Details", "OpenUserDetails", "User", new { @class = "link" })
+            <div id="link-seperator">|</div>
+            @Html.ActionLink("Logout", "Logout", "User", new { @class = "link" })
+        </div>
+    </div>
+
+</body>
+</html>
+@RenderBody()

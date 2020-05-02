@@ -1,0 +1,44 @@
+﻿@model AutoDoc.Models.user
+@{
+    ViewBag.Title = "ManageDoctors";
+    Layout = "../Shared/AdminPanel.cshtml";
+}
+@{
+    var userEntity = new AutoDoc.Models.userEntities();
+
+    var returnedDoctors = userEntity.users.Where(u => u.utype.Equals("DOCTOR")).ToList();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Dashboard - AutoDoc</title>
+    @Styles.Render("~/Content/autodoc-admin.css")
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id='main-content'>
+        <div id='main-header'>Manage Doctors</div>
+        <div id='admin-action-container'>
+            <a href="@Url.Action("ShowAddForm", "Admin", new { type = "DOCTOR" })" class='admin-action-btn' id='add-btn'>Add</a>
+        </div>
+        <div id='admin-frame'>
+            @foreach (var doctor in returnedDoctors)
+            {
+                <div class="frame-cards">
+                    <div class="frame-card-info-container">
+                        <div class="frame-card-cont-text">Dr. @Html.Encode(doctor.firstname) @Html.Encode(doctor.lastname)</div>
+                        <div class="frame-card-cont-text">@Html.Encode(doctor.email)</div>
+                    </div>
+                    <div class="frame-card-buttons-container">
+                        <a href="@Url.Action("ShowUpdateForm", "Admin", new { type = "DOCTOR", id = doctor.Id })" class="frame-card-button">&#9998</a>
+                        <a href="@Url.Action("Delete", "Admin", new { type = "DOCTOR", id = doctor.Id })" class="frame-card-button">&#10799</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</body>
+</html>

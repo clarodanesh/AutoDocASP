@@ -1,0 +1,51 @@
+﻿@model AutoDoc.Models.user
+@{
+    ViewBag.Title = "OpenAdminLanding";
+    Layout = "../Shared/AdminPanel.cshtml";
+}
+@{
+    var userEntity = new AutoDoc.Models.userEntities();
+    var currUserEmail = Session["EMAIL"] as string;
+
+    var doctorCount = userEntity.users.Where(u => u.utype.Equals("DOCTOR")).Count();
+    var adminCount = userEntity.users.Where(u => u.utype.Equals("ADMIN")).Count();
+    var patientCount = userEntity.users.Where(u => u.utype.Equals("USER")).Count();
+}
+
+<head>
+    <title>Admin Dashboard - AutoDoc</title>
+    @Styles.Render("~/Content/autodoc-admin.css")
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+
+<div id='main-content'>
+    <div id='main-header'>Dashboard</div>
+    <div class='admin-board-container'>
+        <!--<?php echo anchor('Admin_controller/ManageDoctors', "<div class='admin-board-header'>Doctors</div><div class='admin-board-content'></div>", 'class="admin-board"');?>-->
+        <a href="@Url.Action("ManageDoctors", "Admin")" class='admin-board'>
+            <div class='admin-board-header'>Doctors</div>
+            <div class='admin-board-content'>
+                <div class="number">@Html.Encode(doctorCount)</div>
+                <div class="caption">Active Doctors</div>
+            </div>
+        </a>
+
+        <a href="@Url.Action("ManagePatients", "Admin")" class='admin-board right-admin-board'>
+            <div class='admin-board-header'>Patients</div>
+            <div class='admin-board-content'>
+                <div class="number">@Html.Encode(patientCount)</div>
+                <div class="caption">Active Patients</div>
+            </div>
+        </a>
+    </div>
+    <a href="@Url.Action("ManageAdmins", "Admin")" class='admin-board-container' id='bottom-admin-board-container'>
+        <div class='admin-board full-width-board'>
+            <div class='admin-board-header'>Admins</div>
+            <div class='admin-board-content'>
+                <div class="number">@Html.Encode(adminCount)</div>
+                <div class="caption">Active Admins</div>
+            </div>
+        </div>
+    </a>
+</div>
+
