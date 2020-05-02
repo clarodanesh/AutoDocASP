@@ -1,0 +1,55 @@
+﻿@model AutoDoc.Models.user
+@{
+    ViewBag.Title = "ManageAdmins";
+    Layout = "../Shared/AdminPanel.cshtml";
+}
+@{
+    var userEntity = new AutoDoc.Models.userEntities();
+
+    var returnedAdmins = userEntity.users.Where(u => u.utype.Equals("ADMIN")).ToList();
+    var s = 5;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Manage Admins - AutoDoc</title>
+    @Styles.Render("~/Content/autodoc-admin.css")
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!--<a href="" class='admin-board'>
+        <div class='admin-board-header'>Doctors</div>
+        <div class='admin-board-content'>
+            <div class="number"></div>
+            <div class="caption">Active Doctors</div>
+        </div>
+    </a>-->
+
+    <div id='main-content'>
+        <div id='main-header'>Manage Admins</div>
+        <div id='admin-action-container'>
+            <a href="@Url.Action("ShowAddForm", "Admin", new { type = "ADMIN" })" class='admin-action-btn' id='add-btn'>Add</a>
+            <!--<input class='admin-action-search' type="text" placeholder="Search">-->
+        </div>
+        <div id='admin-frame'>
+            @foreach (var admin in returnedAdmins)
+            {
+                <div class="frame-cards">
+                    <div class="frame-card-info-container">
+                        <div class="frame-card-cont-text">Dr. @Html.Encode(admin.firstname) @Html.Encode(admin.lastname)</div>
+                        <div class="frame-card-cont-text">@Html.Encode(admin.email)</div>
+                    </div>
+                    <div class="frame-card-buttons-container">
+                        <a href="@Url.Action("ShowUpdateForm", "Admin", new { type = "ADMIN", id = admin.Id })" class="frame-card-button">&#9998</a>
+                        <a href="@Url.Action("Delete", "Admin", new { type = "ADMIN", id = admin.Id })" class="frame-card-button">&#10799</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</body>
+</html>
