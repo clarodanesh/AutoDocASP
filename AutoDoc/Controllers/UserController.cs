@@ -55,6 +55,11 @@ namespace AutoDoc.Controllers
             if (ModelState.IsValid)
             {
                 var db = new userEntities();
+                /*
+                 * according to this article crypto.hashpassword generates a RFC2898 algorithm hash
+                 * using a 256 bit subkey, 128 bit salt and 1000 iterations
+                 * https://www.codeproject.com/Articles/844722/Hashing-Passwords-using-ASP-NETs-Crypto-Class
+                 */
                 var hashedPass = Crypto.HashPassword(model.password);
 
                 var v = db.users.Where(u => u.email.Equals(model.email)).FirstOrDefault();
