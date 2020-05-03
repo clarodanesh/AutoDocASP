@@ -15,7 +15,7 @@
 <div class="modal-form-container">
     @using (Html.BeginForm("ShowUpdateForm", "Admin", FormMethod.Post, new { @class = "admin-modal-form" }))
     {
-
+        @Html.AntiForgeryToken()
         <div class="admin-modal-form-title">Edit</div>
         <div id="auth-form-error">@{@Html.Encode(ViewData["Message"]); @Html.ValidationMessageFor(u => u.dob); @Html.ValidationMessageFor(u => u.firstname); @Html.ValidationMessageFor(u => u.lastname)}</div>
 

@@ -31,6 +31,7 @@
 
         @using (Html.BeginForm("OpenUserDetails", "User", FormMethod.Post, new { @class = "user-form" }))
         {
+            @Html.AntiForgeryToken()
             <div id="auth-form-title">Your Details</div>
             <div id="auth-form-error"></div>
             <div class="auth-form-section">

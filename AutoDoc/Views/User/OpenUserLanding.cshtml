@@ -56,6 +56,7 @@
             <div id="auth-form-error">@{@Html.Encode(ViewData["Message"]); @Html.ValidationMessageFor(u => u.doctor); @Html.ValidationMessageFor(u => u.date); @Html.ValidationMessageFor(u => u.time)}</div>
             @using (Html.BeginForm("OpenUserLanding", "User", FormMethod.Post))
             {
+                @Html.AntiForgeryToken()
                 @Html.DropDownListFor(u => u.doctor, listItems, "-- Select Doctor --", new { @class = "auth-form-input", required = "required" })
                 <div class="auth-form-section">
                     @Html.EditorFor(u => u.date, new

@@ -13,6 +13,7 @@
 <div id="auth-form-container">
     @using (Html.BeginForm("CreateUser", "User", FormMethod.Post, new { @class = "auth-form" }))
     {
+        @Html.AntiForgeryToken()
         <div id="auth-form-title">Register to AutoDoc</div>
         <img id="auth-form-logo" src="../Images/logo.png" />
         <div id="auth-form-hint">Create an account with AutoDoc</div>
