@@ -340,6 +340,11 @@ namespace AutoDoc.Controllers
 
                 var db = new userEntities();
                 var currentUserEmail = Session["EMAIL"] as string;
+
+                /*
+                 * According to this stack overflow post and its answers using the entity framework is a way of preventing sql injection
+                 * https://stackoverflow.com/questions/9079400/control-sql-injection-in-mvc
+                 */
                 var foundUser = db.users.Where(u => u.email.Equals(currentUserEmail) && u.utype.Equals("USER")).FirstOrDefault();
 
 
