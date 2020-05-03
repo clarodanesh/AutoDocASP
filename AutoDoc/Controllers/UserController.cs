@@ -163,7 +163,7 @@ namespace AutoDoc.Controllers
                 var db = new userEntities();
                 var currentUserEmail = model.email;
 
-                var v = db.appointments.Where(u => u.user.Equals(currentUserEmail)).FirstOrDefault();
+                var v = db.users.Where(u => u.email.Equals(currentUserEmail)).FirstOrDefault();
 
                 if (v == null)
                 {
